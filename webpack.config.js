@@ -1,8 +1,14 @@
+var webpack = require('webpack');
+var path = require('path');
+
+var APP_DIR = path.resolve(__dirname, 'src/app');
+var BUILD_DIR = path.resolve(__dirname, 'public/app');
+
 var config = {
-   entry: './main.js',
+   entry: APP_DIR + '/index.js',
 
    output: {
-      path:'./',
+      path: BUILD_DIR,
       filename: 'index.js',
    },
 
