@@ -1,4 +1,5 @@
 import React from 'react';
+import SnapActionSets from './SnapActionSets.jsx';
 
 class ProgressionsPanel extends React.Component {
 	constructor(props) {
@@ -12,6 +13,8 @@ class ProgressionsPanel extends React.Component {
 		this.toggleAddProgressionPanel = this.toggleAddProgressionPanel.bind(this);
 		this.handleNewProgressionName = this.handleNewProgressionName.bind(this);
 		this.handleAddNewProgression = this.handleAddNewProgression.bind(this);
+
+		this.handleAddSnapActionSet = this.handleAddSnapActionSet.bind(this);
 	}
 
 	toggleAddProgressionPanel(event) {
@@ -36,10 +39,21 @@ class ProgressionsPanel extends React.Component {
 		}
 	}
 
+	handleAddSnapActionSet() {
+		this.props.addSnapActionSet();
+	}
+
+	handleRemoveProgression(name) {}
+
 	render() {
 		var progressions = this.props.progressions.map(function(progression, i) {
-			return <li key={i}>{ progression.name }</li>;
-		});
+			return (
+					<li key={i}>
+						<h3>{progression.id} { progression.name }</h3>
+						<SnapActionSets progressionId={ progression.id } snapActions={ progression.actions } addSnapActionSet={ this.props.addSnapActionSet } />
+					</li>
+			);
+		}.bind(this));
 
 		var addProgressionsPanel = <button onClick={this.toggleAddProgressionPanel}>+ New Progression</button>;
 		if (this.state.showAddProgressionPanel) {

@@ -7,13 +7,14 @@ class App extends React.Component {
 		
 		this.state = {
 			progressions: [
-							{ name: 'Successful Login' },
-							{ name: 'Unsuccessful Login: invalid username' },
-							{ name: 'Unsuccessful Login: no info provided' }
+							{ id: 1, name: 'Successful Login',  actions: []},
+							{ id: 2, name: 'Unsuccessful Login: invalid username', actions: [] },
+							{ id: 3, name: 'Unsuccessful Login: no info provided', actions: [] }
 						]
 		};
 
 		this.addProgression = this.addProgression.bind(this);
+		this.addSnapActionSet = this.addSnapActionSet.bind(this);
 	}
 
 	addProgression(name) {
@@ -27,7 +28,24 @@ class App extends React.Component {
 		}
 
 		if (!duplicateName) {
-			progressions.push({ name: name });
+			progressions.push({ id: (progressions.length + 1), name: name });
+			this.setState({ progressions: progressions });
+		}
+	}
+
+	addSnapActionSet(id, name) {
+		var progressions = this.state.progressions.slice();
+		var progressionFound = false;
+		for (var progression in progressions) {
+			console.log("prog", progressions[progression]);
+			if (progressions[progression].id === id) {
+				progressionFound = true;
+				progressions[progression].actions.push({ name: name, actionSet: [] })
+				break;
+			}
+		}
+
+		if (progressionFound) {
 			this.setState({ progressions: progressions });
 		}
 	}
@@ -39,7 +57,7 @@ class App extends React.Component {
 	        	Eagle Eye - Let's do this!
 	        </div>
 
-			<ProgressionsPanel progressions={this.state.progressions} addProgression={this.addProgression}/>
+			<ProgressionsPanel progressions={this.state.progressions} addProgression={ this.addProgression } addSnapActionSet={ this.addSnapActionSet }/>
 		</div>
       );
    }
