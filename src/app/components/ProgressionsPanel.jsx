@@ -49,8 +49,8 @@ class ProgressionsPanel extends React.Component {
 		var progressions = this.props.progressions.map(function(progression, i) {
 			return (
 					<li key={i}>
-						<h3>{progression.id} { progression.name }</h3>
-						<SnapActionSets progressionId={ progression.id } snapActions={ progression.actions } addSnapActionSet={ this.props.addSnapActionSet } />
+						<h3>{ progression.name }</h3>
+						<SnapActionSets progressionId={ progression.id } snapActionSets={ progression.actionSets } addSnapActionSet={ this.props.addSnapActionSet } addSnapAction={ this.props.addSnapAction } />
 					</li>
 			);
 		}.bind(this));
@@ -59,7 +59,7 @@ class ProgressionsPanel extends React.Component {
 		if (this.state.showAddProgressionPanel) {
 			addProgressionsPanel = (
 				<div>
-					<input id="progression-name" ref="progression-name" placeholder="Progression Name" onChange={this.handleNewProgressionName} />
+					<input ref="progression-name" placeholder="Progression Name" onChange={this.handleNewProgressionName} />
 					<button onClick={this.handleAddNewProgression}>Add</button>
 					<a href="#" onClick={this.toggleAddProgressionPanel}>Cancel</a>
 				</div>

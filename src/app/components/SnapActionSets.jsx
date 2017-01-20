@@ -33,26 +33,31 @@ class SnapActionSets extends React.Component {
 			console.log("Attempt add", this.state.newSnapActionSetName);
 			this.props.addSnapActionSet(this.props.progressionId, this.state.newSnapActionSetName);
 			this.setState({ showAddSnapActionSetPanel: false, newSnapActionSetName: '' });
-			this.refs['progression-name'].value = "";
+			this.refs['action-set-name'].value = "";
 		}
 	}
 
 	handleRemoveSnapActionSets(name) {}
 
 	render() {
-		var snapActions = this.props.snapActions.map(function(snapAction, i) {
-			return <li key={i}>{snapAction.id} { snapAction.name }</li>;
-		});
+		var snapActionSets = this.props.snapActionSets.map(function(snapActionSet, i) {
+			return (
+					<li key={i}>
+						<h4>{ snapActionSet.name }</h4>
+						<SnapActions progressionId={ this.props.progressionId } snapActionSetId={ snapActionSet.id } snapActions={ snapActionSet.actions } addSnapAction={ this.props.addSnapAction } />
+					</li>
+			);
+		}.bind(this));
 
-		if (!snapActions.length) {
-			snapActions = <li className="no-snap-actions">Add a snap action!</li>;
+		if (!snapActionSets.length) {
+			snapActionSets = <li className="no-snap-actions">Add a snap action set!</li>;
 		}
 
-		var addSnapActionSetPanel = <button onClick={this.toggleAddSnapActionSetsPanel}>+ New SnapActionSets</button>;
+		var addSnapActionSetPanel = <button onClick={this.toggleAddSnapActionSetsPanel}>+ New Snap Action Set</button>;
 		if (this.state.showAddSnapActionSetPanel) {
 			addSnapActionSetPanel = (
 				<div>
-					<input id="progression-name" ref="progression-name" placeholder="SnapActionSets Name" onChange={this.handleNewSnapActionSetsName} />
+					<input ref="action-set-name" placeholder="Snap Action Set Name" onChange={this.handleNewSnapActionSetsName} />
 					<button onClick={this.handleAddNewSnapActionSets}>Add</button>
 					<a href="#" onClick={this.toggleAddSnapActionSetsPanel}>Cancel</a>
 				</div>
@@ -60,10 +65,10 @@ class SnapActionSets extends React.Component {
 		}
 		return (
 			<div className="snap-actions-panel">
-				<h2>Snap Actions Panel</h2>
+				<h2>Snap Action Sets Panel</h2>
 				{ addSnapActionSetPanel }
 				<ul className="snap-actions">
-					{ snapActions }
+					{ snapActionSets }
 				</ul>
 			</div>
 		);

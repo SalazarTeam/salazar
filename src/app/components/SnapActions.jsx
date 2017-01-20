@@ -5,34 +5,39 @@ class SnapActions extends React.Component {
 		super(props);
 		
 		this.state = {
-			showAddSnapActionPanel: false,
-			newSnapActionName: ""
+			showAddSnapActionPanel: false
 		}
 
-		this.toggleAddSnapActionsPanel = this.toggleAddSnapActionsPanel.bind(this);
-		this.handleNewSnapActionsName = this.handleNewSnapActionsName.bind(this);
-		this.handleAddNewSnapActions = this.handleAddNewSnapActions.bind(this);
+		this.toggleAddSnapActionPanel = this.toggleAddSnapActionPanel.bind(this);
+		this.handleAddNewSnapAction = this.handleAddNewSnapAction.bind(this);
+		this.handleNewSnapActionCriteria = this.handleNewSnapActionCriteria.bind(this);
 	}
 
-	toggleAddSnapActionsPanel(event) {
+	toggleAddSnapActionPanel(event) {
 		event.preventDefault();
 		if (this.state.showAddSnapActionPanel) {
-			this.setState({ showAddSnapActionPanel: false, newSnapActionName: "" });
+			this.setState({ showAddSnapActionPanel: false, newSnapActionElement: "" });
 		} else {
 			this.setState({ showAddSnapActionPanel: true });
 		}
 	}
 
-	handleNewSnapActionsName(event) {
-		this.setState({ newSnapActionName: event.target.value });
+	handleNewSnapActionCriteria(event) {
+		var criteria = {};
+		console.log(event.target.name, event.target.value);
+		criteria[event.target.name] = event.target.value;
+		this.setState(criteria);
 	}
 
-	handleAddNewSnapActions() {
-		if (this.state.newSnapActionName) {
-			console.log("Attempt add", this.state.newSnapActionName);
-			this.props.addSnapAction(this.props.progressionId, this.state.newSnapActionName);
-			this.setState({ showAddSnapActionPanel: false, newSnapActionName: '' });
-			this.refs['progression-name'].value = "";
+	handleAddNewSnapAction() {
+		if (this.state.name && this.state.element && this.state.type) {
+			console.log("Attempt add", this.state.newSnapActionElement);
+			this.props.addSnapAction(this.props.progressionId, this.props.snapActionSetId, this.state.name, this.state.element, this.state.type, this.state.value);
+			this.setState({ showAddSnapActionPanel: false, newSnapActionElement: '' });
+			this.refs['action-name'].value = "";
+			this.refs['action-element'].value = "";
+			this.refs['action-type'].value = "";
+			this.refs['action-value'].value = "";
 		}
 	}
 
@@ -40,20 +45,26 @@ class SnapActions extends React.Component {
 
 	render() {
 		var snapActions = this.props.snapActions.map(function(snapAction, i) {
-			return <li key={i}>{snapAction.id} { snapAction.name }</li>;
+			return <li key={i}>Action { (i + 1) }. "{ snapAction.name }" - {snapAction.element} => { snapAction.type }({ snapAction.value });</li>;
 		});
 
 		if (!snapActions.length) {
 			snapActions = <li className="no-snap-actions">Add a snap action!</li>;
+		} else {
+			snapActions.push(<li>Snap()!</li>)
 		}
 
-		var addSnapActionPanel = <button onClick={this.toggleAddSnapActionsPanel}>+ New SnapActions</button>;
+		var addSnapActionPanel = <button onClick={this.toggleAddSnapActionPanel}>+ New Snap Action</button>;
 		if (this.state.showAddSnapActionPanel) {
 			addSnapActionPanel = (
 				<div>
-					<input id="progression-name" ref="progression-name" placeholder="SnapActions Name" onChange={this.handleNewSnapActionsName} />
-					<button onClick={this.handleAddNewSnapActions}>Add</button>
-					<a href="#" onClick={this.toggleAddSnapActionsPanel}>Cancel</a>
+					<input name="name" ref="action-name" placeholder="Snap Action Summary" onChange={this.handleNewSnapActionCriteria} />
+					<input name="element" ref="action-element" placeholder="Element (Selector)" onChange={this.handleNewSnapActionCriteria} />
+					<input name="type" ref="action-type" placeholder="Type (enterText, click)" onChange={this.handleNewSnapActionCriteria} />
+					<input name="value" ref="action-value" placeholder="Value ('salazar', click)" onChange={this.handleNewSnapActionCriteria} />
+
+					<button onClick={this.handleAddNewSnapAction}>Add</button>
+					<a href="#" onClick={this.toggleAddSnapActionPanel}>Cancel</a>
 				</div>
 			);
 		}
