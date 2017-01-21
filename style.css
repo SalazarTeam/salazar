@@ -1,0 +1,129 @@
+body {
+    background: #dddddd;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: white;
+    width: 600px;
+    height: 400px;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-bottom: 20px;
+    margin: 10px;
+    padding-top: 20px;
+    margin-bottom: 30px;
+    box-shadow: 10px 10px 8px 1px #3d3d3d;
+
+}
+
+#pageholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#timebtn {
+    height: 50px;
+    width: 150px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+#containertitle {
+    font-size: 22px;
+    font-family: arial;
+    margin-bottom: 20px;
+}
+
+#filepath {
+    width: 300px;
+    border: 1px solid gray;
+}
+
+#titlebar {
+    font-size: 26px;
+    font-weight: bold;
+    font-family: arial;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+#main {
+    text-align: center;
+}
+
+#textbox {
+    width: 700px;
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+#suggestionfield {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+#submitbtn {
+    width: 100px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+
+#loginbtn {
+    width: 100px;
+    margin: auto;
+}
+
+#adminfield {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+#forms {
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+#err {
+    color: red;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+#messagesbox {
+    width: 700px;
+    height: 400px;
+    margin-bottom: 10px;
+    border: 1px solid black;
+    overflow: auto;
+    background-color: white;
+    text-align: left;
+    
+}
+
+#logoutbtn {
+    width: 100px;
+    margin: auto;
+}
+
+#printedmsg {
+    font-family: arial;
+    color: black;
+    padding: 10px;
+    border: 1px solid black;
+}
+
+#printedmsg2 {
+    font-family: arial;
+    color: black;
+    background-color: #eaeaea;
+    padding: 10px;
+    border: 1px solid black;
+}

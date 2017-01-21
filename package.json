@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot"
+    "start": "node server.js",
+    "test": "webpack -w"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "babel-preset-react": "^6.16.0"
   },
   "dependencies": {
+    "body-parser": "^1.16.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "webpack": "^1.14.0",

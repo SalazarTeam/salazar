@@ -1,10 +1,11 @@
 import React from 'react';
+import IndexPage from './IndexPage'
 
 class App extends React.Component {
    render() {
       return (
          <div>
-            Eagle Eye - Let's do this!
+            <IndexPage />
          </div>
       );
    }
