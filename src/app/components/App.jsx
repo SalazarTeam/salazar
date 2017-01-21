@@ -10,28 +10,27 @@ class App extends React.Component {
 							// { id: 0, name: 'Successful Login',  actionSets: []},
 							// { id: 1, name: 'Unsuccessful Login: invalid username', actionSets: [] },
 							// { id: 2, name: 'Unsuccessful Login: no info provided', actionSets: [] }
-						]
+						],
+			appState: {}
 		};
 
 		this.addProgression = this.addProgression.bind(this);
 		this.addSnapActionSet = this.addSnapActionSet.bind(this);
 		this.addSnapAction = this.addSnapAction.bind(this);
+		this.sampleSnap = this.sampleSnap.bind(this);
 	}
 
 	addProgression(name) {
 		var progressions = this.state.progressions.slice();
 		var duplicateName = false;
 		for (var progression in progressions) {
-			console.log("prog", progressions[progression]);
 			if (progressions[progression].name === name) {
 				duplicateName = true;
 			}
 		}
 
 		if (!duplicateName) {
-			console.log("good to add");
 			progressions.push({ id: progressions.length, name: name, actionSets: [] });
-			console.log("Now progs: ", progressions);
 			this.setState({ progressions: progressions });
 		}
 	}
@@ -52,16 +51,13 @@ class App extends React.Component {
 		}
 	}
 
-	addSnapAction(id, actionSetId, name, element, type, value) {
-		console.log("SO, ", id, actionSetId, name);
+	addSnapAction(id, actionSetId, name, element, key, type, value) {
 		var progressions = this.state.progressions.slice();
 		var progressionFound = false;
 		for (var progression in progressions) {
-			console.log("prog", progressions[progression]);
 			if (progressions[progression].id === id) {
 				progressionFound = true;
-				console.log("Go it: ", progressions[progression].actionSets[actionSetId]);
-				progressions[progression].actionSets[actionSetId].actions.push({ name: name, element: element, type: type, value: value });
+				progressions[progression].actionSets[actionSetId].actions.push({ name: name, element: element, key: key, type: type, value: value });
 				break;
 			}
 		}
@@ -71,6 +67,38 @@ class App extends React.Component {
 		}
 	}
 
+	sampleSnap() {
+		var progressions = this.state.progressions;
+		//iterate through each progression
+		Object.keys(progressions).forEach(function(progression){
+			var appState = {};
+			//reset the appState to start from initial point for this progression
+
+			this.setState({appState: appState});
+			//iterate through each action of a given progressions actionSets
+			Object.keys(progressions[progression].actionSets).forEach(function(actionSet){
+				//and set the appState associated with each action for this actionSet
+				Object.keys(progressions[progression].actionSets[actionSet].actions).forEach(function(action){
+					var currentAction = progressions[progression].actionSets[actionSet].actions[action];
+					appState[currentAction.key] = currentAction.value;
+
+					this.setState({appState: appState});
+				}.bind(this));
+
+				console.log("State 'Snap Shot' for progression banel : " + progressions[progression].actionSets[actionSet].name, appState);
+
+				//
+				//
+				//
+				//Add visual/code/commit and other associated snapshotting here
+				//
+				//
+				//
+
+			}.bind(this));
+		}.bind(this));
+	}
+
 	render() {
       return (
       	<div className="app">
@@ -78,7 +106,7 @@ class App extends React.Component {
 	        	Eagle Eye - Let's do this!
 	        </div>
 
-			<ProgressionsPanel progressions={this.state.progressions} addProgression={ this.addProgression } addSnapActionSet={ this.addSnapActionSet } addSnapAction={ this.addSnapAction }/>
+			<ProgressionsPanel progressions={this.state.progressions} addProgression={ this.addProgression } addSnapActionSet={ this.addSnapActionSet } addSnapAction={ this.addSnapAction } sampleSnap={ this.sampleSnap } />
 		</div>
       );
    }

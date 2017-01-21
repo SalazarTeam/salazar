@@ -15,6 +15,7 @@ class ProgressionsPanel extends React.Component {
 		this.handleAddNewProgression = this.handleAddNewProgression.bind(this);
 
 		this.handleAddSnapActionSet = this.handleAddSnapActionSet.bind(this);
+		this.handleRunTestSnap = this.handleRunTestSnap.bind(this);
 	}
 
 	toggleAddProgressionPanel(event) {
@@ -45,6 +46,10 @@ class ProgressionsPanel extends React.Component {
 
 	handleRemoveProgression(name) {}
 
+	handleRunTestSnap() {
+		this.props.sampleSnap();
+	}
+
 	render() {
 		var progressions = this.props.progressions.map(function(progression, i) {
 			return (
@@ -72,6 +77,8 @@ class ProgressionsPanel extends React.Component {
 				<ul className="progressions">
 					{ progressions }
 				</ul>
+
+				<button onClick={this.handleRunTestSnap}>Run Test Snap</button>
 			</div>
 		);
    }

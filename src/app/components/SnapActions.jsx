@@ -30,12 +30,12 @@ class SnapActions extends React.Component {
 	}
 
 	handleAddNewSnapAction() {
-		if (this.state.name && this.state.element && this.state.type) {
-			console.log("Attempt add", this.state.newSnapActionElement);
-			this.props.addSnapAction(this.props.progressionId, this.props.snapActionSetId, this.state.name, this.state.element, this.state.type, this.state.value);
+		if (this.state.name && (this.state.element || this.state.key) && this.state.type) {
+			this.props.addSnapAction(this.props.progressionId, this.props.snapActionSetId, this.state.name, this.state.element, this.state.key, this.state.type, this.state.value);
 			this.setState({ showAddSnapActionPanel: false, newSnapActionElement: '' });
 			this.refs['action-name'].value = "";
 			this.refs['action-element'].value = "";
+			this.refs['action-state-key'].value = "";
 			this.refs['action-type'].value = "";
 			this.refs['action-value'].value = "";
 		}
@@ -51,7 +51,7 @@ class SnapActions extends React.Component {
 		if (!snapActions.length) {
 			snapActions = <li className="no-snap-actions">Add a snap action!</li>;
 		} else {
-			snapActions.push(<li>Snap()!</li>)
+			snapActions.push(<li key="snap">Snap()!</li>)
 		}
 
 		var addSnapActionPanel = <button onClick={this.toggleAddSnapActionPanel}>+ New Snap Action</button>;
@@ -60,6 +60,7 @@ class SnapActions extends React.Component {
 				<div>
 					<input name="name" ref="action-name" placeholder="Snap Action Summary" onChange={this.handleNewSnapActionCriteria} />
 					<input name="element" ref="action-element" placeholder="Element (Selector)" onChange={this.handleNewSnapActionCriteria} />
+					<input name="key" ref="action-state-key" placeholder="Key to be set in state" onChange={this.handleNewSnapActionCriteria} />
 					<input name="type" ref="action-type" placeholder="Type (enterText, click)" onChange={this.handleNewSnapActionCriteria} />
 					<input name="value" ref="action-value" placeholder="Value ('salazar', click)" onChange={this.handleNewSnapActionCriteria} />
 

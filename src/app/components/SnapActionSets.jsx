@@ -30,7 +30,6 @@ class SnapActionSets extends React.Component {
 
 	handleAddNewSnapActionSets() {
 		if (this.state.newSnapActionSetName) {
-			console.log("Attempt add", this.state.newSnapActionSetName);
 			this.props.addSnapActionSet(this.props.progressionId, this.state.newSnapActionSetName);
 			this.setState({ showAddSnapActionSetPanel: false, newSnapActionSetName: '' });
 			this.refs['action-set-name'].value = "";
@@ -67,7 +66,7 @@ class SnapActionSets extends React.Component {
 			<div className="snap-actions-panel">
 				<h2>Snap Action Sets Panel</h2>
 				{ addSnapActionSetPanel }
-				<ul className="snap-actions">
+				<ul className="snap-action-sets clear">
 					{ snapActionSets }
 				</ul>
 			</div>
