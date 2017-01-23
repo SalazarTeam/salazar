@@ -26,11 +26,17 @@ body {
     align-items: center;
 }
 
-#timebtn {
+/*#timebtn {
     height: 50px;
     width: 150px;
     border-radius: 5px;
     font-size: 20px;
+}*/
+
+
+#timechoice {
+    width: 300px;
+    border: 1px solid gray;
 }
 
 #containertitle {
@@ -62,68 +68,10 @@ body {
     margin-bottom: 10px;
 }
 
-#suggestionfield {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-}
 
-#submitbtn {
-    width: 100px;
-    margin: auto;
-    margin-bottom: 10px;
-}
 
-#loginbtn {
-    width: 100px;
-    margin: auto;
-}
 
-#adminfield {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: auto;
-}
 
-#forms {
-    text-align: right;
-    margin-bottom: 10px;
-}
 
-#err {
-    color: red;
-    padding-bottom: 10px;
-    padding-top: 10px;
-}
 
-#messagesbox {
-    width: 700px;
-    height: 400px;
-    margin-bottom: 10px;
-    border: 1px solid black;
-    overflow: auto;
-    background-color: white;
-    text-align: left;
-    
-}
 
-#logoutbtn {
-    width: 100px;
-    margin: auto;
-}
-
-#printedmsg {
-    font-family: arial;
-    color: black;
-    padding: 10px;
-    border: 1px solid black;
-}
-
-#printedmsg2 {
-    font-family: arial;
-    color: black;
-    background-color: #eaeaea;
-    padding: 10px;
-    border: 1px solid black;
-}

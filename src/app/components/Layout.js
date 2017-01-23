@@ -32,7 +32,9 @@ export default class Layout extends React.Component {
            <TimeTracker allPaths={this.props.allPaths}
                         menuChange={this.props.menuChange}
                         submitTime={this.props.submitTime}
-                        filePath={this.props.filePath}
+                        filePathChange={this.props.filePathChange}
+                        timeOption={this.props.timeOption}
+                        
                         />
            <FileTracker submitPath={this.props.submitPath}
                         allPaths={this.props.allPaths}

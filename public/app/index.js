@@ -21587,11 +21587,14 @@
 
 	    _this.state = {
 	      path: '',
+	      timeOption: 'Saves',
 	      allPaths: []
 	    };
 	    _this.filePathChange = _this.filePathChange.bind(_this);
 	    _this.submitPath = _this.submitPath.bind(_this);
 	    _this.menuChange = _this.menuChange.bind(_this);
+	    _this.submitTime = _this.submitTime.bind(_this);
+
 	    return _this;
 	  }
 
@@ -21604,8 +21607,8 @@
 	    key: 'menuChange',
 	    value: function menuChange() {
 	      var e = document.getElementById("dropdown");
-	      var strUser = e.options[e.selectedIndex].text;
-	      console.log(strUser);
+	      var choice = e.options[e.selectedIndex].text.toString();
+	      this.setState({ timeOption: choice });
 	    }
 	  }, {
 	    key: 'submitPath',
@@ -21626,16 +21629,33 @@
 	      });
 	    }
 	  }, {
+	    key: 'submitTime',
+	    value: function submitTime() {
+	      switch (this.state.timeOption) {
+	        case "Saves":
+	          console.log('submitted saves interval');
+	          break;
+	        case "Commits":
+	          console.log('submitted commits interval');
+	          break;
+	        case "Days":
+	          console.log('submitted days interval');
+	          break;
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      //console.log(this.state.messages)
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'home' },
-	        _react2.default.createElement(_Layout2.default, { filePath: this.filePathChange,
+	        _react2.default.createElement(_Layout2.default, { filePathChange: this.filePathChange,
 	          submitPath: this.submitPath,
 	          allPaths: this.state.allPaths,
-	          menuChange: this.menuChange
+	          menuChange: this.menuChange,
+	          timeOption: this.state.timeOption,
+	          submitTime: this.submitTime
 	        })
 	      );
 	    }
@@ -21730,7 +21750,9 @@
 	          _react2.default.createElement(_TimeTracker2.default, { allPaths: this.props.allPaths,
 	            menuChange: this.props.menuChange,
 	            submitTime: this.props.submitTime,
-	            filePath: this.props.filePath
+	            filePathChange: this.props.filePathChange,
+	            timeOption: this.props.timeOption
+
 	          }),
 	          _react2.default.createElement(_FileTracker2.default, { submitPath: this.props.submitPath,
 	            allPaths: this.props.allPaths,
@@ -21749,7 +21771,7 @@
 /* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -21775,55 +21797,163 @@
 	  function TimeTracker() {
 	    _classCallCheck(this, TimeTracker);
 
-	    return _possibleConstructorReturn(this, (TimeTracker.__proto__ || Object.getPrototypeOf(TimeTracker)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (TimeTracker.__proto__ || Object.getPrototypeOf(TimeTracker)).call(this));
+
+	    _this.handleOnSubmit = _this.handleOnSubmit.bind(_this);
+	    _this.handleKeyPress = _this.handleKeyPress.bind(_this);
+	    return _this;
 	  }
 
 	  _createClass(TimeTracker, [{
-	    key: "render",
+	    key: 'handleOnSubmit',
+	    value: function handleOnSubmit() {
+	      this.refs.num.value = '';
+	      this.props.submitTime();
+	    }
+	  }, {
+	    key: 'handleKeyPress',
+	    value: function handleKeyPress(e) {
+	      if (e.key === 'Enter') {
+	        this.handleOnSubmit();
+	      }
+	    }
+	  }, {
+	    key: 'render',
 	    value: function render() {
 	      var newArr = [];
 	      for (var i = 0; i < this.props.allPaths.length; i++) {
 	        newArr.push(_react2.default.createElement(
-	          "div",
-	          { id: "pathtext" },
+	          'div',
+	          { id: 'pathtext' },
 	          this.props.allPaths[i]
 	        ));
 	      }
 
-	      return _react2.default.createElement(
-	        "div",
-	        { id: "container" },
-	        _react2.default.createElement(
-	          "div",
-	          { id: "titlebar" },
-	          "Time"
-	        ),
-	        _react2.default.createElement(
-	          "select",
-	          { id: "dropdown", onChange: this.props.menuChange },
+	      if (this.props.timeOption === 'Saves') {
+	        return _react2.default.createElement(
+	          'div',
+	          { id: 'container' },
 	          _react2.default.createElement(
-	            "option",
-	            { value: "days" },
-	            "Days"
+	            'div',
+	            { id: 'titlebar' },
+	            'Time'
 	          ),
 	          _react2.default.createElement(
-	            "option",
-	            { value: "saves", selected: true },
-	            "Saves"
+	            'select',
+	            { id: 'dropdown', onChange: this.props.menuChange },
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'days' },
+	              'Days'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'saves', selected: true },
+	              'Saves'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'commits' },
+	              'Commits'
+	            )
 	          ),
+	          'Number of Saves until Snapshot:',
 	          _react2.default.createElement(
-	            "option",
-	            { value: "commits" },
-	            "Commits"
+	            'div',
+	            null,
+	            _react2.default.createElement('input', { id: 'timechoice', onChange: this.props.filePathChange, ref: 'num', onKeyPress: this.handleKeyPress, placeholder: 'Type a number here' }),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.props.submitTime, id: 'timebtn' },
+	              'Go'
+	            )
 	          )
-	        ),
-	        _react2.default.createElement("input", { id: "timechoice", onChange: this.props.filePath, placeholder: "Type a number here" }),
-	        _react2.default.createElement(
-	          "button",
-	          { onClick: this.props.submitTime, id: "timebtn" },
-	          "Go"
-	        )
-	      );
+	        );
+	      }
+
+	      if (this.props.timeOption === 'Commits') {
+	        return _react2.default.createElement(
+	          'div',
+	          { id: 'container' },
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'titlebar' },
+	            'Time'
+	          ),
+	          _react2.default.createElement(
+	            'select',
+	            { id: 'dropdown', onChange: this.props.menuChange },
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'days' },
+	              'Days'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'saves', selected: true },
+	              'Saves'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'commits' },
+	              'Commits'
+	            )
+	          ),
+	          'Number of commits until SnapShot:',
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement('input', { id: 'timechoice', onChange: this.props.filePathChange, ref: 'num', onKeyPress: this.handleKeyPress, placeholder: 'Type a number here' }),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.props.submitTime, id: 'timebtn' },
+	              'Go'
+	            )
+	          )
+	        );
+	      }
+
+	      if (this.props.timeOption === 'Days') {
+	        return _react2.default.createElement(
+	          'div',
+	          { id: 'container' },
+	          _react2.default.createElement(
+	            'div',
+	            { id: 'titlebar' },
+	            'Time'
+	          ),
+	          _react2.default.createElement(
+	            'select',
+	            { id: 'dropdown', onChange: this.props.menuChange },
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'days' },
+	              'Days'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'saves', selected: true },
+	              'Saves'
+	            ),
+	            _react2.default.createElement(
+	              'option',
+	              { value: 'commits' },
+	              'Commits'
+	            )
+	          ),
+	          'Number of days until SnapShot:',
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement('input', { id: 'timechoice', onChange: this.props.filePathChange, ref: 'num', onKeyPress: this.handleKeyPress, placeholder: 'Type a number here' }),
+	            _react2.default.createElement(
+	              'button',
+	              { onClick: this.props.submitTime, id: 'timebtn' },
+	              'Go'
+	            )
+	          )
+	        );
+	      }
 	    }
 	  }]);
 

@@ -7,11 +7,14 @@ export default class IndexPage extends React.Component {
     super();
     this.state = {
       path: '',  
+      timeOption: 'Saves',
       allPaths: [],
     };
     this.filePathChange = this.filePathChange.bind(this);
     this.submitPath = this.submitPath.bind(this); 
     this.menuChange = this.menuChange.bind(this);
+    this.submitTime = this.submitTime.bind(this);
+    
   }
 
   filePathChange(e) {
@@ -20,8 +23,9 @@ export default class IndexPage extends React.Component {
 
   menuChange() {
     let e = document.getElementById("dropdown");
-    let strUser = e.options[e.selectedIndex].text;
-    console.log(strUser)
+    let choice = e.options[e.selectedIndex].text.toString();
+    this.setState({timeOption: choice})
+
   }
 
   submitPath(){
@@ -40,6 +44,21 @@ export default class IndexPage extends React.Component {
       dataType: 'application/json'
     });
   }
+
+  submitTime() {
+    switch (this.state.timeOption) {
+       case "Saves":
+          console.log('submitted saves interval');
+          break;
+       case "Commits":
+          console.log('submitted commits interval');
+          break;
+       case "Days":
+          console.log('submitted days interval');
+          break;
+    }
+
+  }
   
 
   render() {
@@ -47,10 +66,12 @@ export default class IndexPage extends React.Component {
     return (
       <div className="home">
       
-        <Layout filePath={this.filePathChange}
+        <Layout filePathChange={this.filePathChange}
                 submitPath={this.submitPath}
                 allPaths={this.state.allPaths}
                 menuChange={this.menuChange}
+                timeOption={this.state.timeOption}
+                submitTime={this.submitTime}
         />
 
         
