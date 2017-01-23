@@ -1,4 +1,5 @@
 import React from 'react';
+import IndexPage from './IndexPage'
 import ProgressionsPanel from './ProgressionsPanel.jsx';
 
 class App extends React.Component {
@@ -105,9 +106,9 @@ class App extends React.Component {
 	        <div>
 	        	Eagle Eye - Let's do this!
 	        </div>
-
-			<ProgressionsPanel progressions={this.state.progressions} addProgression={ this.addProgression } addSnapActionSet={ this.addSnapActionSet } addSnapAction={ this.addSnapAction } sampleSnap={ this.sampleSnap } />
-		</div>
+          <IndexPage />
+			    <ProgressionsPanel progressions={this.state.progressions} addProgression={ this.addProgression } addSnapActionSet={ this.addSnapActionSet } addSnapAction={ this.addSnapAction } sampleSnap={ this.sampleSnap } />
+		    </div>
       );
    }
 }
