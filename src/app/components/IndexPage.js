@@ -14,10 +14,11 @@ export default class IndexPage extends React.Component {
     this.submitPath = this.submitPath.bind(this); 
     this.menuChange = this.menuChange.bind(this);
     this.submitTime = this.submitTime.bind(this);
-    
+
   }
 
   filePathChange(e) {
+    // console.log('changing path to ' + e.target.value)
     this.setState({path: e.target.value})
   }
 
@@ -29,11 +30,11 @@ export default class IndexPage extends React.Component {
   }
 
   submitPath(){
-    
-    
     let newArr = this.state.allPaths; 
     newArr.push(this.state.path);
     this.setState({allPaths: newArr});
+    // console.log('path: ', this.state.path)
+    // console.log('allpaths: ', this.state.allPaths)
 
 
     $.ajax({
