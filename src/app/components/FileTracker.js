@@ -27,7 +27,7 @@ export default class FileTracker extends React.Component {
       <div id="container">
         <div id="titlebar">Or on file change</div>
           <div>
-            <input id="filepath" ref="path" onChange={this.props.filePath} onKeyPress={this.handleKeyPress} placeholder="Type your file path here"></input>
+            <input id="filepath" ref="path" onChange={this.props.filePathChange} onKeyPress={this.handleKeyPress} placeholder="Type your file path here"></input>
             <button onClick={this.handleOnSubmit} id="filepathbtn">Go</button>
             {newArr}
           </div>

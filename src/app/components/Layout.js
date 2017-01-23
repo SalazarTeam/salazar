@@ -34,11 +34,11 @@ export default class Layout extends React.Component {
                         submitTime={this.props.submitTime}
                         filePathChange={this.props.filePathChange}
                         timeOption={this.props.timeOption}
-                        
+
                         />
            <FileTracker submitPath={this.props.submitPath}
                         allPaths={this.props.allPaths}
-                        filePath={this.props.filePath}/>
+                        filePathChange={this.props.filePathChange}/>
         </div>
         
       </div>
