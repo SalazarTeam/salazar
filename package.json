@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot",
-    "phantom": "phantomjs src/app/components/hello.js",
-    "test": "webpack -w"
+    "test": "webpack -w",
+    "phantom": "phantomjs src/app/components/hello.js"
   },
   "repository": {
     "type": "git",
@@ -27,7 +27,6 @@
     "babel-preset-react": "^6.16.0"
   },
   "dependencies": {
-    "jquery": "^3.1.1",
     "phantomjs": "^2.1.7",
     "body-parser": "^1.16.0",
     "fsmonitor": "^0.2.4",
