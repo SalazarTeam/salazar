@@ -5,19 +5,10 @@ import IndexPage from './IndexPage'
 import ProgressionsPanel from './ProgressionsPanel.jsx';
 
 class App extends React.Component {
-<<<<<<< HEAD
 
-
-   render() {
-      return (
-         <div id="snap1" ref="hello">
-            Eagle Eye - Let's do this!
-            {snapshot.snap("#snap1")}
-         </div>
-=======
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
 			progressions: [
 							// { id: 0, name: 'Successful Login',  actionSets: []},
@@ -98,7 +89,7 @@ class App extends React.Component {
 					this.setState({appState: appState});
 				}.bind(this));
 
-				console.log("State 'Snap Shot' for progression banel : " + progressions[progression].actionSets[actionSet].name, appState);
+				console.log("State 'Snap Shot' for progression panel : " + progressions[progression].actionSets[actionSet].name, appState);
 
 				//
 				//
@@ -112,16 +103,17 @@ class App extends React.Component {
 		}.bind(this));
 	}
 
+	/* {snapshot.snap('#snap1')} */
+
 	render() {
       return (
       	<div className="app">
-	        <div>
+	        <div id="snap1">
 	        	Eagle Eye - Let's do this!
 	        </div>
           <IndexPage />
 			    <ProgressionsPanel progressions={this.state.progressions} addProgression={ this.addProgression } addSnapActionSet={ this.addSnapActionSet } addSnapAction={ this.addSnapAction } sampleSnap={ this.sampleSnap } />
 		    </div>
->>>>>>> d3fb2125507a8ab65ea1ba8fd998d963a35b073d
       );
    }
 }
