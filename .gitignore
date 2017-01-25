@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 src/.DS_Store
 src/app/.DS_Store
+paths.json

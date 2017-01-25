@@ -1,3 +1,3 @@
 # Eagle Eye
 
-A tool and library to expedite UI development through Visual TDD
+A tool and library to expedite UI development through Visual BDD
