@@ -1,22 +1,23 @@
 {
-  "name": "ghost-of-salazar",
+  "name": "salazar",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "webpack -w"
+    "start": "webpack-dev-server --hot",
+    "test": "webpack -w",
+    "phantom": "phantomjs src/app/components/hello.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SalazarTeam/GhostofSalazar.git"
+    "url": "git+https://github.com/SalazarTeam/salazar.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SalazarTeam/GhostofSalazar/issues"
+    "url": "https://github.com/SalazarTeam/salazar/issues"
   },
-  "homepage": "https://github.com/SalazarTeam/GhostofSalazar#readme",
+  "homepage": "https://github.com/SalazarTeam/salazar#readme",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
@@ -26,6 +27,7 @@
     "babel-preset-react": "^6.16.0"
   },
   "dependencies": {
+    "phantomjs": "^2.1.7",
     "body-parser": "^1.16.0",
     "fsmonitor": "^0.2.4",
     "react": "^15.4.2",

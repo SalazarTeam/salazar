@@ -1,11 +1,14 @@
+var snapshot = require('./snapshot.js');
+
 import React from 'react';
 import IndexPage from './IndexPage'
 import ProgressionsPanel from './ProgressionsPanel.jsx';
 
 class App extends React.Component {
+
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {
 			progressions: [
 							// { id: 0, name: 'Successful Login',  actionSets: []},
@@ -86,7 +89,7 @@ class App extends React.Component {
 					this.setState({appState: appState});
 				}.bind(this));
 
-				console.log("State 'Snap Shot' for progression banel : " + progressions[progression].actionSets[actionSet].name, appState);
+				console.log("State 'Snap Shot' for progression panel : " + progressions[progression].actionSets[actionSet].name, appState);
 
 				//
 				//
@@ -100,10 +103,12 @@ class App extends React.Component {
 		}.bind(this));
 	}
 
+	/* {snapshot.snap('#snap1')} */
+
 	render() {
       return (
       	<div className="app">
-	        <div>
+	        <div id="snap1">
 	        	Eagle Eye - Let's do this!
 	        </div>
           <IndexPage />
