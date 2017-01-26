@@ -84,4 +84,5 @@ class ProgressionsPanel extends React.Component {
    }
 }
 
+
 export default ProgressionsPanel;
