@@ -26,12 +26,10 @@ body {
     align-items: center;
 }
 
-/*#timebtn {
-    height: 50px;
-    width: 150px;
-    border-radius: 5px;
-    font-size: 20px;
-}*/
+#pathtext {
+    margin-left: 5px;
+    margin-right: 5px;
+} 
 
 
 #timechoice {
@@ -48,6 +46,11 @@ body {
 #filepath {
     width: 300px;
     border: 1px solid gray;
+}
+
+#horizontalcontainer {
+    display: flex;
+    flex-direction: row;
 }
 
 #titlebar {

@@ -21618,7 +21618,6 @@
 						Object.keys(progressions[progression].actionSets[actionSet].actions).forEach(function (action) {
 							var currentAction = progressions[progression].actionSets[actionSet].actions[action];
 							appState[currentAction.key] = currentAction.value;
-
 							this.setState({ appState: appState });
 						}.bind(this));
 
@@ -21695,13 +21694,13 @@
 	    _this.state = {
 	      path: '',
 	      timeOption: 'Saves',
+	      changedFiles: [],
 	      allPaths: []
 	    };
 	    _this.filePathChange = _this.filePathChange.bind(_this);
 	    _this.submitPath = _this.submitPath.bind(_this);
 	    _this.menuChange = _this.menuChange.bind(_this);
 	    _this.submitTime = _this.submitTime.bind(_this);
-
 	    return _this;
 	  }
 
@@ -21721,17 +21720,21 @@
 	  }, {
 	    key: 'submitPath',
 	    value: function submitPath() {
-	      var newArr = this.state.allPaths;
-	      newArr.push(this.state.path);
-	      this.setState({ allPaths: newArr });
+	      // let newArr = this.state.allPaths; 
+	      // newArr.push(this.state.path);
+	      // this.setState({allPaths: newArr});
+	      console.log('got here');
+
+	      var fileVal = document.getElementById("uploadpath");
+	      alert(fileVal.value);
+
 	      // console.log('path: ', this.state.path)
 	      // console.log('allpaths: ', this.state.allPaths)
-
 
 	      $.ajax({
 	        type: "POST",
 	        url: "http://localhost:3000/paths",
-	        data: { path: this.state.allPaths },
+	        data: { path: fileVal.value },
 	        success: function success() {
 	          console.log('success!');
 	        },
@@ -21754,9 +21757,21 @@
 	      }
 	    }
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      console.log('component mounted');
+	      return $.ajax({
+	        type: "get",
+	        dataType: 'json',
+	        url: "http://localhost:3000/changed"
+	      }).done(function (result) {
+	        //console.log("result:",result);
+	        this.setState({ changedFiles: result });
+	      }.bind(this));
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      //console.log(this.state.messages)
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'home' },
@@ -21765,8 +21780,8 @@
 	          allPaths: this.state.allPaths,
 	          menuChange: this.menuChange,
 	          timeOption: this.state.timeOption,
-	          submitTime: this.submitTime
-	        })
+	          submitTime: this.submitTime,
+	          changedFiles: this.state.changedFiles })
 	      );
 	    }
 	  }]);
@@ -21837,18 +21852,30 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var newArr = [];
-	      for (var i = 0; i < this.props.allPaths.length; i++) {
-	        newArr.push(_react2.default.createElement(
+	      var rawList = this.props.changedFiles;
+	      rawList = Object.keys(rawList);
+	      var listOfChangedFiles = [];
+	      for (var i = 0; i < rawList.length; i++) {
+	        listOfChangedFiles.push(_react2.default.createElement(
 	          'div',
 	          { id: 'pathtext' },
-	          this.props.allPaths[i]
+	          rawList[i]
 	        ));
+	      }
+	      var changedFilesText = '';
+	      if (listOfChangedFiles.length >= 1) {
+	        changedFilesText = 'List of changed files: ';
 	      }
 
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        _react2.default.createElement(
+	          'span',
+	          { id: 'horizontalcontainer' },
+	          changedFilesText,
+	          listOfChangedFiles
+	        ),
 	        _react2.default.createElement(
 	          'div',
 	          { id: 'titlebar', className: 'title-bar' },
@@ -21862,7 +21889,6 @@
 	            submitTime: this.props.submitTime,
 	            filePathChange: this.props.filePathChange,
 	            timeOption: this.props.timeOption
-
 	          }),
 	          _react2.default.createElement(_FileTracker2.default, { submitPath: this.props.submitPath,
 	            allPaths: this.props.allPaths,
@@ -21930,15 +21956,6 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var newArr = [];
-	      for (var i = 0; i < this.props.allPaths.length; i++) {
-	        newArr.push(_react2.default.createElement(
-	          'div',
-	          { id: 'pathtext' },
-	          this.props.allPaths[i]
-	        ));
-	      }
-
 	      if (this.props.timeOption === 'Saves') {
 	        return _react2.default.createElement(
 	          'div',
@@ -22125,9 +22142,9 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var newArr = [];
+	      var listOfPaths = [];
 	      for (var i = 0; i < this.props.allPaths.length; i++) {
-	        newArr.push(_react2.default.createElement(
+	        listOfPaths.push(_react2.default.createElement(
 	          'div',
 	          { id: 'pathtext' },
 	          this.props.allPaths[i]
@@ -22151,7 +22168,7 @@
 	            { onClick: this.handleOnSubmit, id: 'filepathbtn' },
 	            'Go'
 	          ),
-	          newArr
+	          listOfPaths
 	        )
 	      );
 	    }
@@ -22159,6 +22176,10 @@
 
 	  return FileTracker;
 	}(_react2.default.Component);
+
+	// <input type="file" id="uploadpath" webkitdirectory directory multiple/>
+	//           <input type="button" id="uploadpathbtn" onClick={this.handleOnSubmit}/> will try this later, for file path browse
+
 
 	exports.default = FileTracker;
 
