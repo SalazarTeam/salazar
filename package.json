@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot",
+    "start": "nodemon server.js",
     "test": "webpack -w",
     "phantom": "phantomjs src/app/components/hello.js"
   },
