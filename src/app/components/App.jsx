@@ -102,14 +102,24 @@ class App extends React.Component {
 		}.bind(this));
 	}
 
-	/* {snapshot.snap('#snap1')} */
+
 
 	render() {
       return (
       	<div className="app">
 	        <div id="snap1">
 	        	Eagle Eye - Let's do this!
-	        </div>
+						{snapshot.snap('#snap1')}
+						{snapshot.snap('#snap1')}
+						{snapshot.snap('#snap1')}
+						{snapshot.snap('#snap1')}
+
+						</div>
+					<div id="div1">
+					{setInterval(function() {
+						snapshot.post()
+					}, 3000)}
+					</div>
           <IndexPage />
 			    <ProgressionsPanel progressions={this.state.progressions} addProgression={ this.addProgression } addSnapActionSet={ this.addSnapActionSet } addSnapAction={ this.addSnapAction } sampleSnap={ this.sampleSnap } />
 		    </div>

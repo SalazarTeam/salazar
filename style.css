@@ -20,6 +20,13 @@ body {
 
 }
 
+#div1 {
+  border: 1px solid black;
+  height: 1000px;
+  width: 33%;
+  overflow: scroll;
+}
+
 #pageholder {
     display: flex;
     justify-content: center;
@@ -69,4 +76,8 @@ body {
     width: 700px;
     height: 200px;
     margin-bottom: 10px;
+}
+
+#snap1 {
+  background-color: red;
 }
