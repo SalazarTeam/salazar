@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Salazar.js - A UI Focused BDD Library and Suite</title>
+		<style>
+		html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video,ul,li{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+		html {box-sizing: border-box;}
+
+		*, *:before, *:after {box-sizing: inherit;}
+
+		.clear:after {content: ""; display: table; clear: both;}
+		h1, h2, h3, h4, h5, h6 {font-weight: bold;}
+		h1 {font-size: 2.0em;}
+		h2 {font-size: 1.6em;}
+		h3 {font-size: 1.4em;}
+		h4 {font-size: 1.2em;}
+		h5 {font-size: 1.1em; padding: 3px; border-bottom: 1px solid #f2f2f2; margin-bottom: 4px;}
+
+		.container {padding: 10px;}
+
+		ul {margin: 20px;}
+
+		ul.groups {}
+		ul.groups > li {border: 4px solid #66c; border-radius: 5px; padding: 8px; margin: 10px 0;}
+
+		ul.progressions {border: 4px solid #99c; border-radius: 5px; padding: 8px;}
+		ul.progressions > li {padding: 8px 0; border-bottom: 2px solid #eee;}
+		ul.progressions > li:last-of-type {border-bottom: 0;}
+
+		ul.action-sets {}
+		ul.action-sets > li {float: left; width: 25%; margin: 0 10px; border: 4px solid #639; border-radius: 5px; padding: 8px;}
+
+		ul.actions {margin: 0;}
+		ul.actions > li {border: 4px solid #999; padding: 10px; border-radius: 5px; margin: 4px 0;}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Salazar Visualizer</h1>
+			<div>
+				<div class="add-panel">
+					<input class="add-group-name" placeholder="Ex. Login UI"/>
+					<button class="add-group">Add Group</button>
+				</div>
+				<ul class="groups">
+					<li>Add a UI Group to Begin!</li>
+				</ul>
+			</div>
+		</div>
+
+		<script src="js/jquery.js"></script>
+		<script>
+		var groups = [];
+
+		function checkKeyValueExists(arr, key, value) {
+			for (var i = 0; i < arr.length; i++) {
+				if (arr[i][key] === value) {
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		function showGroupData() {
+			console.log("group: ", groups);
+		}
+
+		function renderGroups() {
+			$(".groups").html("");
+
+			for (var g = 0; g < groups.length; g++) {
+				$(".groups").append("<li id='group-" + g + "' data-group-id='" + g + "'><h2>" + groups[g].name + " Progressions</h2><div class='add-panel'><input class='add-progression-name' placeholder='Ex. Successful Login'/><button class='add-progression'>Add Progression</button></div><ul class='progressions'><li>Add a progression to this UI group.</li></ul></li>");
+				
+				if (groups[g].progressions.length) {
+					$("#group-" + g + " > .progressions").html("");
+				}
+
+				for (var p = 0; p < groups[g].progressions.length; p++) {
+					$("#group-" + g + " > .progressions").append("<li id='group-" + g + "-progression-" + p + "' data-progression-id='" + p + "'><h3>" + groups[g].progressions[p].name + " Action Sets</h3><div class='add-panel'><input class='add-action-set-name' placeholder='Ex. Enter User Name'/><button class='add-action-set'>Add Action Set</button></div><ul class='action-sets clear'><li>Add an action set to this progression.</li></ul></li>");
+
+					if (groups[g].progressions[p].actionSets.length) {
+						$("#group-" + g + "-progression-" + p + " > .action-sets").html("");
+					}
+
+					for (var as = 0; as < groups[g].progressions[p].actionSets.length; as++) {
+						$("#group-" + g + "-progression-" + p + " > .action-sets").append("<li id='group-" + g + "-progression-" + p + "-action-set-" + as + "' data-action-set-id='" + as + "'><h4>" + groups[g].progressions[p].actionSets[as].name + " Actions</h4><div class='add-panel'><input class='add-action-name' placeholder='Action Summary'/><input class='add-action-method' placeholder='Action Method'/><input class='add-action-state-key' placeholder='State Key'/><input class='add-action-state-value' placeholder='State Value'/><button class='add-action'>Add Action</button></div><ul class='actions'></ul></li>");
+
+						for (var a = 0; a < groups[g].progressions[p].actionSets[as].actions.length; a++) {
+							$("#group-" + g + "-progression-" + p + "-action-set-" + as + " > .actions").append("<li id='group-" + g + "-progression-" + p + "-action-set-" + as + "-action-" + a +"' data-action-id='" + a + "'><h5>" + groups[g].progressions[p].actionSets[as].actions[a].name + "</h5><p>" + groups[g].progressions[p].actionSets[as].actions[a].method + "</p><p>" + groups[g].progressions[p].actionSets[as].actions[a].stateKey + "</p><p>" + groups[g].progressions[p].actionSets[as].actions[a].stateValue + "</p></li>");
+						}
+					}
+				}
+			}
+		}
+
+		$("body").on("click", ".add-group", function(){
+			var groupName = $(this).parent().children(".add-group-name").val();
+
+			if (groupName && !checkKeyValueExists(groups, "name", groupName)) {
+				groups.push({ name: groupName, progressions: [] });
+				$(this).parent().children(".add-group-name").val("");
+				renderGroups();
+			} else {
+				console.log("Group already exists.");
+			}
+
+			showGroupData();
+		});
+
+		$("body").on("click", ".add-progression", function(){
+			var progressionName = $(this).parent().children(".add-progression-name").val();
+
+			var g = $(this).parent().parent().attr("data-group-id");
+
+			if (progressionName && !checkKeyValueExists(groups[g].progressions, "name", progressionName)) {
+				groups[g].progressions.push({ name: progressionName, actionSets: [] });
+				$(this).parent().children(".add-progression-name").val("");
+				renderGroups();
+			} else {
+				console.log("Progression for group " + g + " already exists.");
+			}
+
+			showGroupData();
+		});
+
+		$("body").on("click", ".add-action-set", function(){
+			var actionSetName = $(this).parent().children(".add-action-set-name").val();
+
+			var g = $(this).parent().parent().parent().parent().attr("data-group-id");
+			var p = $(this).parent().parent().attr("data-progression-id");
+
+			if (actionSetName && !checkKeyValueExists(groups[g].progressions[p].actionSets, "name", actionSetName)) {
+				groups[g].progressions[p].actionSets.push({ name: actionSetName, actions: [] });
+				$(this).parent().children(".add-action-set-name").val("");
+				renderGroups();
+			} else {
+				console.log("Action set for group " + g + ", progression " + p + " already exists.");
+			}
+
+			showGroupData();
+		});
+
+		$("body").on("click", ".add-action", function(){
+			var actionName = $(this).parent().children(".add-action-name").val();
+			var actionMethod = $(this).parent().children(".add-action-method").val();
+			var actionStateKey = $(this).parent().children(".add-action-state-key").val();
+			var actionStateValue = $(this).parent().children(".add-action-state-value").val();
+
+			var g = $(this).parent().parent().parent().parent().parent().parent().attr("data-group-id");
+			var p = $(this).parent().parent().parent().parent().attr("data-progression-id");
+			var as = $(this).parent().parent().attr("data-action-set-id");
+
+
+			console.log("gpas: ", g, p, as);
+
+			if (actionName && !checkKeyValueExists(groups[g].progressions[p].actionSets[as].actions, "name", actionName)) {
+				groups[g].progressions[p].actionSets[as].actions.push({ name: actionName, method: actionMethod, stateKey: actionStateKey, stateValue: actionStateValue });
+				$(this).parent().children(".add-action-name").val("");
+				$(this).parent().children(".add-action-method").val("");
+				$(this).parent().children(".add-action-state-key").val("");
+				$(this).parent().children(".add-action-state-value").val("");
+				renderGroups();
+			} else {
+				console.log("Action for group " + g + ", progression " + p + ", action set " + as + " already exists.");
+			}
+
+			showGroupData();
+		});
+		</script>
+	</body>
+</html>
