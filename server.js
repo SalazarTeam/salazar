@@ -27,7 +27,6 @@ app.get('/login', (req, res) => {
 app.post('/paths', function(req, res) {
   console.log('in /message post');
 
-  
 
   fs.writeFile(__dirname + '/paths.json', JSON.stringify(req.body, null, '\t'), function(){
       console.log(req);

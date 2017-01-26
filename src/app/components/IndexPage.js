@@ -29,21 +29,16 @@ export default class IndexPage extends React.Component {
   }
 
   submitPath(){
-    // let newArr = this.state.allPaths; 
-    // newArr.push(this.state.path);
-    // this.setState({allPaths: newArr});
-    console.log('got here')
-
-    var fileVal=document.getElementById("uploadpath");
-    alert(fileVal.value);
-
+    let newArr = this.state.allPaths; 
+    newArr.push(this.state.path);
+    this.setState({allPaths: newArr});
     // console.log('path: ', this.state.path)
     // console.log('allpaths: ', this.state.allPaths)
 
     $.ajax({
       type: "POST",
       url: "http://localhost:3000/paths",
-      data: {path: fileVal.value},
+      data: {path: this.state.allPaths},
       success: function(){console.log('success!')},
       dataType: 'application/json'
     });
@@ -85,6 +80,7 @@ export default class IndexPage extends React.Component {
                 timeOption={this.state.timeOption}
                 submitTime={this.submitTime}
                 changedFiles={this.state.changedFiles}/>
+
       </div>
 
     );
