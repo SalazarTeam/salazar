@@ -1,3 +1,3 @@
-# Eagle Eye
+# Salazar
 
-A tool and library to expedite UI development through Visual TDD
+A library and development suite for UI Focused BDD/TDD

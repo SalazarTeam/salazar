@@ -1,5 +1,5 @@
 {
-  "name": "ghost-of-salazar",
+  "name": "salazar",
   "version": "0.0.1",
   "description": "",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SalazarTeam/GhostofSalazar.git"
+    "url": "git+https://github.com/SalazarTeam/salazar.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/SalazarTeam/GhostofSalazar/issues"
+    "url": "https://github.com/SalazarTeam/salazar/issues"
   },
-  "homepage": "https://github.com/SalazarTeam/GhostofSalazar#readme",
+  "homepage": "https://github.com/SalazarTeam/salazar#readme",
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
