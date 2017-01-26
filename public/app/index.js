@@ -21503,7 +21503,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	   value: true
+		value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -21516,6 +21516,10 @@
 
 	var _IndexPage2 = _interopRequireDefault(_IndexPage);
 
+	var _ProgressionsPanel = __webpack_require__(183);
+
+	var _ProgressionsPanel2 = _interopRequireDefault(_ProgressionsPanel);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21524,27 +21528,135 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var snapshot = __webpack_require__(186);
+
 	var App = function (_React$Component) {
-	   _inherits(App, _React$Component);
+		_inherits(App, _React$Component);
 
-	   function App() {
-	      _classCallCheck(this, App);
+		function App(props) {
+			_classCallCheck(this, App);
 
-	      return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
-	   }
+			var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
-	   _createClass(App, [{
-	      key: 'render',
-	      value: function render() {
-	         return _react2.default.createElement(
-	            'div',
-	            null,
-	            _react2.default.createElement(_IndexPage2.default, null)
-	         );
-	      }
-	   }]);
+			_this.state = {
+				progressions: [
+					// { id: 0, name: 'Successful Login',  actionSets: []},
+					// { id: 1, name: 'Unsuccessful Login: invalid username', actionSets: [] },
+					// { id: 2, name: 'Unsuccessful Login: no info provided', actionSets: [] }
+				],
+				appState: {}
+			};
 
-	   return App;
+			_this.addProgression = _this.addProgression.bind(_this);
+			_this.addSnapActionSet = _this.addSnapActionSet.bind(_this);
+			_this.addSnapAction = _this.addSnapAction.bind(_this);
+			_this.sampleSnap = _this.sampleSnap.bind(_this);
+			return _this;
+		}
+
+		_createClass(App, [{
+			key: 'addProgression',
+			value: function addProgression(name) {
+				var progressions = this.state.progressions.slice();
+				var duplicateName = false;
+				for (var progression in progressions) {
+					if (progressions[progression].name === name) {
+						duplicateName = true;
+					}
+				}
+
+				if (!duplicateName) {
+					progressions.push({ id: progressions.length, name: name, actionSets: [] });
+					this.setState({ progressions: progressions });
+				}
+			}
+		}, {
+			key: 'addSnapActionSet',
+			value: function addSnapActionSet(id, name) {
+				var progressions = this.state.progressions.slice();
+				var progressionFound = false;
+				for (var progression in progressions) {
+					if (progressions[progression].id === id) {
+						progressionFound = true;
+						progressions[progression].actionSets.push({ id: progressions[progression].actionSets.length, name: name, actions: [] });
+						break;
+					}
+				}
+
+				if (progressionFound) {
+					this.setState({ progressions: progressions });
+				}
+			}
+		}, {
+			key: 'addSnapAction',
+			value: function addSnapAction(id, actionSetId, name, element, key, type, value) {
+				var progressions = this.state.progressions.slice();
+				var progressionFound = false;
+				for (var progression in progressions) {
+					if (progressions[progression].id === id) {
+						progressionFound = true;
+						progressions[progression].actionSets[actionSetId].actions.push({ name: name, element: element, key: key, type: type, value: value });
+						break;
+					}
+				}
+
+				if (progressionFound) {
+					this.setState({ progressions: progressions });
+				}
+			}
+		}, {
+			key: 'sampleSnap',
+			value: function sampleSnap() {
+				var progressions = this.state.progressions;
+				//iterate through each progression
+				Object.keys(progressions).forEach(function (progression) {
+					var appState = {};
+					//reset the appState to start from initial point for this progression
+
+					this.setState({ appState: appState });
+					//iterate through each action of a given progressions actionSets
+					Object.keys(progressions[progression].actionSets).forEach(function (actionSet) {
+						//and set the appState associated with each action for this actionSet
+						Object.keys(progressions[progression].actionSets[actionSet].actions).forEach(function (action) {
+							var currentAction = progressions[progression].actionSets[actionSet].actions[action];
+							appState[currentAction.key] = currentAction.value;
+
+							this.setState({ appState: appState });
+						}.bind(this));
+
+						console.log("State 'Snap Shot' for progression panel : " + progressions[progression].actionSets[actionSet].name, appState);
+
+						//
+						//
+						//
+						//Add visual/code/commit and other associated snapshotting here
+						//
+						//
+						//
+					}.bind(this));
+				}.bind(this));
+			}
+
+			/* {snapshot.snap('#snap1')} */
+
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ className: 'app' },
+					_react2.default.createElement(
+						'div',
+						{ id: 'snap1' },
+						'Eagle Eye - Let\'s do this!'
+					),
+					_react2.default.createElement(_IndexPage2.default, null),
+					_react2.default.createElement(_ProgressionsPanel2.default, { progressions: this.state.progressions, addProgression: this.addProgression, addSnapActionSet: this.addSnapActionSet, addSnapAction: this.addSnapAction, sampleSnap: this.sampleSnap })
+				);
+			}
+		}]);
+
+		return App;
 	}(_react2.default.Component);
 
 	exports.default = App;
@@ -22051,6 +22163,486 @@
 	}(_react2.default.Component);
 
 	exports.default = FileTracker;
+
+/***/ },
+/* 183 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _SnapActionSets = __webpack_require__(184);
+
+	var _SnapActionSets2 = _interopRequireDefault(_SnapActionSets);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ProgressionsPanel = function (_React$Component) {
+		_inherits(ProgressionsPanel, _React$Component);
+
+		function ProgressionsPanel(props) {
+			_classCallCheck(this, ProgressionsPanel);
+
+			var _this = _possibleConstructorReturn(this, (ProgressionsPanel.__proto__ || Object.getPrototypeOf(ProgressionsPanel)).call(this, props));
+
+			_this.state = {
+				showAddProgressionPanel: false,
+				newProgressionName: ""
+			};
+
+			_this.toggleAddProgressionPanel = _this.toggleAddProgressionPanel.bind(_this);
+			_this.handleNewProgressionName = _this.handleNewProgressionName.bind(_this);
+			_this.handleAddNewProgression = _this.handleAddNewProgression.bind(_this);
+
+			_this.handleAddSnapActionSet = _this.handleAddSnapActionSet.bind(_this);
+			_this.handleRunTestSnap = _this.handleRunTestSnap.bind(_this);
+			return _this;
+		}
+
+		_createClass(ProgressionsPanel, [{
+			key: 'toggleAddProgressionPanel',
+			value: function toggleAddProgressionPanel(event) {
+				event.preventDefault();
+				if (this.state.showAddProgressionPanel) {
+					this.setState({ showAddProgressionPanel: false, newProgressionName: "" });
+				} else {
+					this.setState({ showAddProgressionPanel: true });
+				}
+			}
+		}, {
+			key: 'handleNewProgressionName',
+			value: function handleNewProgressionName(event) {
+				this.setState({ newProgressionName: event.target.value });
+			}
+		}, {
+			key: 'handleAddNewProgression',
+			value: function handleAddNewProgression() {
+				if (this.state.newProgressionName) {
+					console.log("Attempt add", this.state.newProgressionName);
+					this.props.addProgression(this.state.newProgressionName);
+					this.setState({ showAddProgressionPanel: false, newProgressionName: '' });
+					this.refs['progression-name'].value = "";
+				}
+			}
+		}, {
+			key: 'handleAddSnapActionSet',
+			value: function handleAddSnapActionSet() {
+				this.props.addSnapActionSet();
+			}
+		}, {
+			key: 'handleRemoveProgression',
+			value: function handleRemoveProgression(name) {}
+		}, {
+			key: 'handleRunTestSnap',
+			value: function handleRunTestSnap() {
+				this.props.sampleSnap();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var progressions = this.props.progressions.map(function (progression, i) {
+					return _react2.default.createElement(
+						'li',
+						{ key: i },
+						_react2.default.createElement(
+							'h3',
+							null,
+							progression.name
+						),
+						_react2.default.createElement(_SnapActionSets2.default, { progressionId: progression.id, snapActionSets: progression.actionSets, addSnapActionSet: this.props.addSnapActionSet, addSnapAction: this.props.addSnapAction })
+					);
+				}.bind(this));
+
+				var addProgressionsPanel = _react2.default.createElement(
+					'button',
+					{ onClick: this.toggleAddProgressionPanel },
+					'+ New Progression'
+				);
+				if (this.state.showAddProgressionPanel) {
+					addProgressionsPanel = _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement('input', { ref: 'progression-name', placeholder: 'Progression Name', onChange: this.handleNewProgressionName }),
+						_react2.default.createElement(
+							'button',
+							{ onClick: this.handleAddNewProgression },
+							'Add'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '#', onClick: this.toggleAddProgressionPanel },
+							'Cancel'
+						)
+					);
+				}
+				return _react2.default.createElement(
+					'div',
+					{ className: 'progressions-panel' },
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Progressions Panel'
+					),
+					addProgressionsPanel,
+					_react2.default.createElement(
+						'ul',
+						{ className: 'progressions' },
+						progressions
+					),
+					_react2.default.createElement(
+						'button',
+						{ onClick: this.handleRunTestSnap },
+						'Run Test Snap'
+					)
+				);
+			}
+		}]);
+
+		return ProgressionsPanel;
+	}(_react2.default.Component);
+
+	exports.default = ProgressionsPanel;
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _SnapActions = __webpack_require__(185);
+
+	var _SnapActions2 = _interopRequireDefault(_SnapActions);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SnapActionSets = function (_React$Component) {
+		_inherits(SnapActionSets, _React$Component);
+
+		function SnapActionSets(props) {
+			_classCallCheck(this, SnapActionSets);
+
+			var _this = _possibleConstructorReturn(this, (SnapActionSets.__proto__ || Object.getPrototypeOf(SnapActionSets)).call(this, props));
+
+			_this.state = {
+				showAddSnapActionSetPanel: false,
+				newSnapActionSetName: ""
+			};
+
+			_this.toggleAddSnapActionSetsPanel = _this.toggleAddSnapActionSetsPanel.bind(_this);
+			_this.handleNewSnapActionSetsName = _this.handleNewSnapActionSetsName.bind(_this);
+			_this.handleAddNewSnapActionSets = _this.handleAddNewSnapActionSets.bind(_this);
+			return _this;
+		}
+
+		_createClass(SnapActionSets, [{
+			key: 'toggleAddSnapActionSetsPanel',
+			value: function toggleAddSnapActionSetsPanel(event) {
+				event.preventDefault();
+				if (this.state.showAddSnapActionSetPanel) {
+					this.setState({ showAddSnapActionSetPanel: false, newSnapActionSetName: "" });
+				} else {
+					this.setState({ showAddSnapActionSetPanel: true });
+				}
+			}
+		}, {
+			key: 'handleNewSnapActionSetsName',
+			value: function handleNewSnapActionSetsName(event) {
+				this.setState({ newSnapActionSetName: event.target.value });
+			}
+		}, {
+			key: 'handleAddNewSnapActionSets',
+			value: function handleAddNewSnapActionSets() {
+				if (this.state.newSnapActionSetName) {
+					this.props.addSnapActionSet(this.props.progressionId, this.state.newSnapActionSetName);
+					this.setState({ showAddSnapActionSetPanel: false, newSnapActionSetName: '' });
+					this.refs['action-set-name'].value = "";
+				}
+			}
+		}, {
+			key: 'handleRemoveSnapActionSets',
+			value: function handleRemoveSnapActionSets(name) {}
+		}, {
+			key: 'render',
+			value: function render() {
+				var snapActionSets = this.props.snapActionSets.map(function (snapActionSet, i) {
+					return _react2.default.createElement(
+						'li',
+						{ key: i },
+						_react2.default.createElement(
+							'h4',
+							null,
+							snapActionSet.name
+						),
+						_react2.default.createElement(_SnapActions2.default, { progressionId: this.props.progressionId, snapActionSetId: snapActionSet.id, snapActions: snapActionSet.actions, addSnapAction: this.props.addSnapAction })
+					);
+				}.bind(this));
+
+				if (!snapActionSets.length) {
+					snapActionSets = _react2.default.createElement(
+						'li',
+						{ className: 'no-snap-actions' },
+						'Add a snap action set!'
+					);
+				}
+
+				var addSnapActionSetPanel = _react2.default.createElement(
+					'button',
+					{ onClick: this.toggleAddSnapActionSetsPanel },
+					'+ New Snap Action Set'
+				);
+				if (this.state.showAddSnapActionSetPanel) {
+					addSnapActionSetPanel = _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement('input', { ref: 'action-set-name', placeholder: 'Snap Action Set Name', onChange: this.handleNewSnapActionSetsName }),
+						_react2.default.createElement(
+							'button',
+							{ onClick: this.handleAddNewSnapActionSets },
+							'Add'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '#', onClick: this.toggleAddSnapActionSetsPanel },
+							'Cancel'
+						)
+					);
+				}
+				return _react2.default.createElement(
+					'div',
+					{ className: 'snap-actions-panel' },
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Snap Action Sets Panel'
+					),
+					addSnapActionSetPanel,
+					_react2.default.createElement(
+						'ul',
+						{ className: 'snap-action-sets clear' },
+						snapActionSets
+					)
+				);
+			}
+		}]);
+
+		return SnapActionSets;
+	}(_react2.default.Component);
+
+	exports.default = SnapActionSets;
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SnapActions = function (_React$Component) {
+		_inherits(SnapActions, _React$Component);
+
+		function SnapActions(props) {
+			_classCallCheck(this, SnapActions);
+
+			var _this = _possibleConstructorReturn(this, (SnapActions.__proto__ || Object.getPrototypeOf(SnapActions)).call(this, props));
+
+			_this.state = {
+				showAddSnapActionPanel: false
+			};
+
+			_this.toggleAddSnapActionPanel = _this.toggleAddSnapActionPanel.bind(_this);
+			_this.handleAddNewSnapAction = _this.handleAddNewSnapAction.bind(_this);
+			_this.handleNewSnapActionCriteria = _this.handleNewSnapActionCriteria.bind(_this);
+			return _this;
+		}
+
+		_createClass(SnapActions, [{
+			key: 'toggleAddSnapActionPanel',
+			value: function toggleAddSnapActionPanel(event) {
+				event.preventDefault();
+				if (this.state.showAddSnapActionPanel) {
+					this.setState({ showAddSnapActionPanel: false, newSnapActionElement: "" });
+				} else {
+					this.setState({ showAddSnapActionPanel: true });
+				}
+			}
+		}, {
+			key: 'handleNewSnapActionCriteria',
+			value: function handleNewSnapActionCriteria(event) {
+				var criteria = {};
+				console.log(event.target.name, event.target.value);
+				criteria[event.target.name] = event.target.value;
+				this.setState(criteria);
+			}
+		}, {
+			key: 'handleAddNewSnapAction',
+			value: function handleAddNewSnapAction() {
+				if (this.state.name && (this.state.element || this.state.key) && this.state.type) {
+					this.props.addSnapAction(this.props.progressionId, this.props.snapActionSetId, this.state.name, this.state.element, this.state.key, this.state.type, this.state.value);
+					this.setState({ showAddSnapActionPanel: false, newSnapActionElement: '' });
+					this.refs['action-name'].value = "";
+					this.refs['action-element'].value = "";
+					this.refs['action-state-key'].value = "";
+					this.refs['action-type'].value = "";
+					this.refs['action-value'].value = "";
+				}
+			}
+		}, {
+			key: 'handleRemoveSnapActions',
+			value: function handleRemoveSnapActions(name) {}
+		}, {
+			key: 'render',
+			value: function render() {
+				var snapActions = this.props.snapActions.map(function (snapAction, i) {
+					return _react2.default.createElement(
+						'li',
+						{ key: i },
+						'Action ',
+						i + 1,
+						'. "',
+						snapAction.name,
+						'" - ',
+						snapAction.element,
+						' => ',
+						snapAction.type,
+						'(',
+						snapAction.value,
+						');'
+					);
+				});
+
+				if (!snapActions.length) {
+					snapActions = _react2.default.createElement(
+						'li',
+						{ className: 'no-snap-actions' },
+						'Add a snap action!'
+					);
+				} else {
+					snapActions.push(_react2.default.createElement(
+						'li',
+						{ key: 'snap' },
+						'Snap()!'
+					));
+				}
+
+				var addSnapActionPanel = _react2.default.createElement(
+					'button',
+					{ onClick: this.toggleAddSnapActionPanel },
+					'+ New Snap Action'
+				);
+				if (this.state.showAddSnapActionPanel) {
+					addSnapActionPanel = _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement('input', { name: 'name', ref: 'action-name', placeholder: 'Snap Action Summary', onChange: this.handleNewSnapActionCriteria }),
+						_react2.default.createElement('input', { name: 'element', ref: 'action-element', placeholder: 'Element (Selector)', onChange: this.handleNewSnapActionCriteria }),
+						_react2.default.createElement('input', { name: 'key', ref: 'action-state-key', placeholder: 'Key to be set in state', onChange: this.handleNewSnapActionCriteria }),
+						_react2.default.createElement('input', { name: 'type', ref: 'action-type', placeholder: 'Type (enterText, click)', onChange: this.handleNewSnapActionCriteria }),
+						_react2.default.createElement('input', { name: 'value', ref: 'action-value', placeholder: 'Value (\'salazar\', click)', onChange: this.handleNewSnapActionCriteria }),
+						_react2.default.createElement(
+							'button',
+							{ onClick: this.handleAddNewSnapAction },
+							'Add'
+						),
+						_react2.default.createElement(
+							'a',
+							{ href: '#', onClick: this.toggleAddSnapActionPanel },
+							'Cancel'
+						)
+					);
+				}
+				return _react2.default.createElement(
+					'div',
+					{ className: 'snap-actions-panel' },
+					_react2.default.createElement(
+						'h2',
+						null,
+						'Snap Actions Panel'
+					),
+					addSnapActionPanel,
+					_react2.default.createElement(
+						'ul',
+						{ className: 'snap-actions' },
+						snapActions
+					)
+				);
+			}
+		}]);
+
+		return SnapActions;
+	}(_react2.default.Component);
+
+	exports.default = SnapActions;
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(32);
+
+	var snapshot = {
+	  snap: function snap(selector) {
+	    $(document).ready(function () {
+	      console.log('current selector', $(selector).clone());
+	      $(selector).clone().appendTo("#staging");
+	      console.log("Get what you are saying - to import to 2nd part of le snap!");
+	      console.log('staging html', $("#staging").html());
+	      console.log('selector html', $(selector).html());
+	    });
+	  }
+	};
+
+	module.exports = snapshot;
 
 /***/ }
 /******/ ]);
