@@ -18,9 +18,9 @@ export default class FileTracker extends React.Component {
     }
   
   render() {
-    let newArr = [];
+    let listOfPaths = [];
     for (let i=0; i<this.props.allPaths.length; i++) {
-      newArr.push(<div id="pathtext">{this.props.allPaths[i]}</div>)
+      listOfPaths.push(<div id="pathtext">{this.props.allPaths[i]}</div>)
     }
 
     return (
@@ -29,9 +29,17 @@ export default class FileTracker extends React.Component {
           <div>
             <input id="filepath" ref="path" onChange={this.props.filePathChange} onKeyPress={this.handleKeyPress} placeholder="Type your file path here"></input>
             <button onClick={this.handleOnSubmit} id="filepathbtn">Go</button>
-            {newArr}
+            {listOfPaths}
           </div>
       </div>
     );
   }
 }
+
+
+
+
+// <input type="file" id="uploadpath" webkitdirectory directory multiple/>
+//           <input type="button" id="uploadpathbtn" onClick={this.handleOnSubmit}/> will try this later, for file path browse
+
+

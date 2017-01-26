@@ -8,13 +8,13 @@ export default class IndexPage extends React.Component {
     this.state = {
       path: '',  
       timeOption: 'Saves',
+      changedFiles: [],
       allPaths: [],
     };
     this.filePathChange = this.filePathChange.bind(this);
     this.submitPath = this.submitPath.bind(this); 
     this.menuChange = this.menuChange.bind(this);
     this.submitTime = this.submitTime.bind(this);
-
   }
 
   filePathChange(e) {
@@ -26,21 +26,24 @@ export default class IndexPage extends React.Component {
     let e = document.getElementById("dropdown");
     let choice = e.options[e.selectedIndex].text.toString();
     this.setState({timeOption: choice})
-
   }
 
   submitPath(){
-    let newArr = this.state.allPaths; 
-    newArr.push(this.state.path);
-    this.setState({allPaths: newArr});
+    // let newArr = this.state.allPaths; 
+    // newArr.push(this.state.path);
+    // this.setState({allPaths: newArr});
+    console.log('got here')
+
+    var fileVal=document.getElementById("uploadpath");
+    alert(fileVal.value);
+
     // console.log('path: ', this.state.path)
     // console.log('allpaths: ', this.state.allPaths)
-
 
     $.ajax({
       type: "POST",
       url: "http://localhost:3000/paths",
-      data: {path: this.state.allPaths},
+      data: {path: fileVal.value},
       success: function(){console.log('success!')},
       dataType: 'application/json'
     });
@@ -58,26 +61,33 @@ export default class IndexPage extends React.Component {
           console.log('submitted days interval');
           break;
     }
-
   }
-  
+
+  componentDidMount() {
+    console.log('component mounted')
+   return $.ajax({
+          type: "get",
+          dataType: 'json',
+          url: "http://localhost:3000/changed",
+        }).done(function(result){
+          //console.log("result:",result);
+          this.setState({changedFiles: result});
+        }.bind(this));
+  }
 
   render() {
-    //console.log(this.state.messages)
     return (
       <div className="home">
-      
         <Layout filePathChange={this.filePathChange}
                 submitPath={this.submitPath}
                 allPaths={this.state.allPaths}
                 menuChange={this.menuChange}
                 timeOption={this.state.timeOption}
                 submitTime={this.submitTime}
-        />
-
-        
-          
+                changedFiles={this.state.changedFiles}/>
       </div>
+
     );
   }
 }
+

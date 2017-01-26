@@ -7,8 +7,8 @@ import ProgressionsPanel from './ProgressionsPanel.jsx';
 class App extends React.Component {
 
 	constructor(props) {
-		super(props);
-
+		super(props); 
+		
 		this.state = {
 			progressions: [
 							// { id: 0, name: 'Successful Login',  actionSets: []},
@@ -85,7 +85,6 @@ class App extends React.Component {
 				Object.keys(progressions[progression].actionSets[actionSet].actions).forEach(function(action){
 					var currentAction = progressions[progression].actionSets[actionSet].actions[action];
 					appState[currentAction.key] = currentAction.value;
-
 					this.setState({appState: appState});
 				}.bind(this));
 
@@ -117,5 +116,6 @@ class App extends React.Component {
       );
    }
 }
-
 export default App;
+
+
