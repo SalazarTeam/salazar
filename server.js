@@ -29,8 +29,9 @@ app.post('/paths', function(req, res) {
   console.log('in /message post');
   
   var fs = require('fs');
+  // console.log('writing ' + req.body);
   fs.writeFile(__dirname + '/paths.json', JSON.stringify(req.body), function(){
-      console.log('wrote file')
+      console.log(req);
       res.end();
   });
 })
