@@ -1,0 +1,3 @@
+.--overhaul-inactive {z-index: 1000; position: fixed; top: 0; left: 0;}
+.--overhaul-observing {display: block;}
+.--overhaul-observing + div {display: none;}
