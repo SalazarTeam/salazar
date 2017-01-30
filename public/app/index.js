@@ -21528,6 +21528,8 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var snapshot = __webpack_require__(186);
+
 	var App = function (_React$Component) {
 		_inherits(App, _React$Component);
 
@@ -21621,7 +21623,7 @@
 							this.setState({ appState: appState });
 						}.bind(this));
 
-						console.log("State 'Snap Shot' for progression banel : " + progressions[progression].actionSets[actionSet].name, appState);
+						console.log("State 'Snap Shot' for progression panel : " + progressions[progression].actionSets[actionSet].name, appState);
 
 						//
 						//
@@ -21641,8 +21643,9 @@
 					{ className: 'app' },
 					_react2.default.createElement(
 						'div',
-						null,
-						'Eagle Eye - Let\'s do this!'
+						{ id: 'snap1' },
+						'Eagle Eye - Let\'s do this!',
+						snapshot.snap('#snap1')
 					),
 					_react2.default.createElement(_IndexPage2.default, null),
 					_react2.default.createElement(_ProgressionsPanel2.default, { progressions: this.state.progressions, addProgression: this.addProgression, addSnapActionSet: this.addSnapActionSet, addSnapAction: this.addSnapAction, sampleSnap: this.sampleSnap })
@@ -21720,21 +21723,16 @@
 	  }, {
 	    key: 'submitPath',
 	    value: function submitPath() {
-	      // let newArr = this.state.allPaths; 
-	      // newArr.push(this.state.path);
-	      // this.setState({allPaths: newArr});
-	      console.log('got here');
-
-	      var fileVal = document.getElementById("uploadpath");
-	      alert(fileVal.value);
-
+	      var newArr = this.state.allPaths;
+	      newArr.push(this.state.path);
+	      this.setState({ allPaths: newArr });
 	      // console.log('path: ', this.state.path)
 	      // console.log('allpaths: ', this.state.allPaths)
 
 	      $.ajax({
 	        type: "POST",
 	        url: "http://localhost:3000/paths",
-	        data: { path: fileVal.value },
+	        data: { path: this.state.allPaths },
 	        success: function success() {
 	          console.log('success!');
 	        },
@@ -22639,6 +22637,68 @@
 	}(_react2.default.Component);
 
 	exports.default = SnapActions;
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var ReactDOM = __webpack_require__(32);
+	var app = __webpack_require__(178);
+	var snapshot = {
+	  progressionCache: {},
+	  snap: function snap(selector) {
+	    $(document).ready(function () {
+	      //set cache to store progressions
+	      var progressionCache = snapshot.progressionCache;
+
+	      //modify selector string to only include characters
+	      var selectorArr = selector.split('');
+	      selectorArr.shift();
+	      var selectorString = selectorArr.join('');
+	      var refinedString = selectorString.replace(/\W/g, '');
+
+	      //console.log('refinedString', refinedString);
+
+	      if (!progressionCache[refinedString]) {
+	        progressionCache[refinedString] = {};
+	        progressionCache[refinedString].count = 0;
+	        //console.log('count', progressionCache[refinedString].count)
+	        var copy = $(selector).clone();
+	        progressionCache[refinedString][progressionCache[refinedString].count] = copy;
+	        progressionCache[refinedString].count += 1;
+	      } else {
+	        //console.log('count', progressionCache[refinedString].count)
+	        var _copy = $(selector).clone();
+	        progressionCache[refinedString][progressionCache[refinedString].count] = _copy;
+	        progressionCache[refinedString].count += 1;
+	      }
+
+	      console.log('progressionCache', progressionCache);
+	      //
+	      // if(progressionCache.refinedString) {
+	      //   // console.log('progressionCache.refinedString else statement', progressionCache.refinedString);
+	      //   // console.log('count', progressionCache.refinedString.count);
+	      //   progressionCache.refinedString[progressionCache.refinedString.count] = $(selector);
+	      //   progressionCache.refinedString.count += 1;
+	      // }
+	      //console.log('after everything', progressionCache.refinedString)
+	    });
+	  },
+	  post: function post() {
+	    var progressionCache = snapshot.progressionCache.snap1;
+	    var objKeys = Object.keys(progressionCache);
+	    console.log('objKeys', objKeys.length);
+	    for (var i = 0; i < objKeys.length - 1; i += 1) {
+	      console.log('progressionCache post', progressionCache[i][0]);
+	      $('#div1').append(progressionCache[i][0]);
+	    }
+	  }
+	};
+
+	module.exports = snapshot;
 
 /***/ }
 /******/ ]);
