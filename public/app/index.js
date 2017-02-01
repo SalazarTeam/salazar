@@ -21644,8 +21644,7 @@
 					_react2.default.createElement(
 						'div',
 						{ id: 'snap1' },
-						'Eagle Eye - Let\'s do this!',
-						snapshot.snap('#snap1')
+						'Eagle Eye - Let\'s do this!'
 					),
 					_react2.default.createElement(_IndexPage2.default, null),
 					_react2.default.createElement(_ProgressionsPanel2.default, { progressions: this.state.progressions, addProgression: this.addProgression, addSnapActionSet: this.addSnapActionSet, addSnapAction: this.addSnapAction, sampleSnap: this.sampleSnap })

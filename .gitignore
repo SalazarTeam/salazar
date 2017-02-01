@@ -4,4 +4,4 @@ overhaul/node_modules
 src/.DS_Store
 src/app/.DS_Store
 paths.json
-public/app
+public/app/index.js

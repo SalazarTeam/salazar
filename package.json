@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "webpack -w",
-    "phantom": "phantomjs src/app/components/hello.js"
+    "phantom": "phantomjs phantomsnap.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,7 @@
   "dependencies": {
     "body-parser": "^1.16.0",
     "fsmonitor": "^0.2.4",
+    "phantomjs": "^2.1.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "webpack": "^1.14.0",
