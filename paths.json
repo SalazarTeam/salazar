@@ -1,3 +1,6 @@
 {
-	"path[]": "sdfsdf"
+	"path[]": [
+		"/src/",
+		"/public"
+	]
 }

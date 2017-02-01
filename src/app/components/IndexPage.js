@@ -17,6 +17,7 @@ export default class IndexPage extends React.Component {
     this.submitTime = this.submitTime.bind(this);
   }
 
+
   filePathChange(e) {
     // console.log('changing path to ' + e.target.value)
     this.setState({path: e.target.value})
@@ -86,4 +87,5 @@ export default class IndexPage extends React.Component {
     );
   }
 }
+
 
