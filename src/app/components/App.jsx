@@ -109,8 +109,7 @@ class App extends React.Component {
       	<div className="app">
 	        <div id="snap1">
 	        	Eagle Eye - Let's do this!
-						{snapshot.snap('#snap1')}
-					
+						
 						</div>
 
           <IndexPage />
