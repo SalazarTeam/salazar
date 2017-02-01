@@ -1,6 +1,7 @@
 node_modules
+overhaul/node_modules
 .DS_Store
 src/.DS_Store
 src/app/.DS_Store
 paths.json
-public/app
+public/app/index.js

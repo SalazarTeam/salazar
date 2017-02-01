@@ -1,0 +1,57 @@
+.--overhaul-inactive {z-index: 1000; position: fixed; top: 0; left: 0;}
+.--overhaul-observing {display: block;}
+.--overhaul-observing + div {display: none;}
+
+.--overhaul-hide-progressions {display: none;}
+
+#--overhaul * {text-shadow: none; clear: none; margin: 0;}
+#--overhaul .clear:after {content: ""; display: table; clear: both;}
+#--overhaul h1 {font-size: 2.0em;}
+#--overhaul h2 {font-size: 1.6em;}
+#--overhaul h3 {font-size: 1.4em;}
+#--overhaul h4 {font-size: 1.2em;}
+#--overhaul h5 {font-size: 1.1em; padding: 3px; border-bottom: 1px solid #f2f2f2; margin-bottom: 4px;}
+#--overhaul .container {padding: 10px;}
+#--overhaul ul {margin: 20px;}
+#--overhaul ul > li {position: relative;}
+#--overhaul ul.groups {}
+#--overhaul ul.groups > li {border: 4px solid #66c; border-radius: 5px; padding: 8px; margin: 10px 0;}
+#--overhaul ul.progressions {border: 4px solid #99c; border-radius: 5px; padding: 8px;}
+#--overhaul ul.progressions > li {padding: 8px 0; border-bottom: 2px solid #eee;}
+#--overhaul ul.progressions > li:last-of-type {border-bottom: 0;}
+#--overhaul ul.action-sets {}
+#--overhaul ul.action-sets > li {float: left; width: 23%; margin: 10px 4px; border: 4px solid #639; border-radius: 5px; padding: 8px;}
+#--overhaul ul.action-sets > li input {display: block; width: 100%;}
+#--overhaul ul.actions {margin: 0;}
+#--overhaul ul.actions > li {border: 4px solid #999; padding: 10px; border-radius: 5px; margin: 12px 0;}
+#--overhaul em.action-order {position: absolute; top: -10px; left: -10px; border: 2px solid #111; border-radius: 5px; padding: 4px; box-shadow: 2px 2px 4px #ccc; background-color: #fff;}
+#--overhaul .visualizer {}
+#--overhaul .visualizer > .progression-setup {float: left; width: 60%;}
+#--overhaul .visualizer > .interface-inspector {float: left; width: 39%; margin-left: 1%;}
+#--overhaul /* Tested UI CSS */
+#--overhaul .interface-tests {}
+#--overhaul .interface-tests > .interface {float: left; width: 58%; margin: 0 1%;}
+#--overhaul .interface-tests > .tests {float: left; width: 38%;}
+#--overhaul .ui-grouping > li {border-bottom: 3px solid #888; margin-bottom: 30px; padding: 0 15px 30px;}
+#--overhaul .ui-grouping h4 {font-size: 1.3em; font-weight: bold; margin: 15px 0; border: 2px solid #33c; background-color: #ccf; text-align: center; padding: 10px 4px;}
+#--overhaul ul.progression-snaps > li, #--overhaul ul.progression-tests > li {display: none;}
+#--overhaul ul.progression-snaps > li.selected, #--overhaul ul.progression-tests > li.selected {display: block;}
+#--overhaul ul.test-units {margin: 0;}
+#--overhaul ul.test-units > li {clear: both;}
+#--overhaul ul.test-units > li > em {display: block; float: left; width: 36px; overflow: hidden; background-image: url("images/pass-fail-icons.png"); background-position: -73px 0; background-repeat: no-repeat; font-size: 0.85em; min-height: 42px; margin: 0px 6px 10px 0;}
+#--overhaul ul.test-units > li.pass > em {background-position: 0px 0;}
+#--overhaul ul.test-units > li.fail > em {background-position: -36px 0;}
+#--overhaul ul.test-units > li > span {display: block; float: left; width: 70%;}
+#--overhaul .scrubber-action-set-name {margin: 10px 0; font-weight: bold; font-size: 1.25em;}
+#--overhaul .notice {position: absolute; top: 10px; left: 4px; width: 96%; background-color: #fc9; border: 2px solid #f60; border-radius: 3px; padding: 20px 10px; min-height: 140px; opacity: 0.9;}
+#--overhaul .interface {font-family: "Lato"}
+#--overhaul .interface .error {display: block; margin: 10px 0; background-color: #fcc; border: 3px solid #c33; padding: 10px; font-size: 1.3em; font-weight: bold; text-align: center; border-radius: 5px;}
+#--overhaul .interface .user-login {position: relative; font-family: 'Lato', sans-serif;}
+#--overhaul .interface .user-login {border: 1px solid #ccc; box-shadow: 2px 2px 3px #eee; border-radius: 3px;}
+#--overhaul .interface .user-login > h2 {display: block; border: 1px solid #009; background-color: #339; font-size: 1.4em; color: #fff; padding: 10px; text-align: center;}
+#--overhaul .interface .user-login .user-entry {padding: 12px;}
+#--overhaul .interface .user-login .user-entry .entry-group {margin: 12px 0;}
+#--overhaul .interface .user-login .user-entry .entry-group input {display: block; width: 92%; margin: 0 auto; font-size: 1.4em; font-weight: bold; text-align: center; border: 1px solid #ccc; border-radius: 3px; padding: 10px;}
+#--overhaul .interface .user-login .user-entry .submit-login {display: block; width: 30%; min-width: 120px; border: 2px solid #060; border-radius: 5px; background-color: #396; color: #fff; font-size: 1.0em; padding: 8px 18px; margin: 20px auto;}
+#--overhaul .ui-grouping > li {display: none;}
+#--overhaul #generate-progressions {display: block; width: 40%; font-size: 2em; font-weight: bold; padding: 10px; background-color: #096; margin: 10px auto;}

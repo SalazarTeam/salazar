@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "webpack -w",
-    "phantom": "phantomjs phantomsnap.js"
+    "start": "webpack-dev-server --hot"
   },
   "repository": {
     "type": "git",
@@ -27,9 +25,6 @@
     "babel-preset-react": "^6.16.0"
   },
   "dependencies": {
-    "body-parser": "^1.16.0",
-    "fsmonitor": "^0.2.4",
-    "phantomjs": "^2.1.7",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "webpack": "^1.14.0",

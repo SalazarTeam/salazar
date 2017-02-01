@@ -1,15 +1,14 @@
 var snapshot = require('./snapshot.js');
 
 import React from 'react';
-import IndexPage from './IndexPage'
 import ProgressionsPanel from './ProgressionsPanel.jsx';
 
-class App extends React.Component {
-
+class Overhaul extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			className: "--overhaul-inactive",
 			progressions: [
 							// { id: 0, name: 'Successful Login',  actionSets: []},
 							// { id: 1, name: 'Unsuccessful Login: invalid username', actionSets: [] },
@@ -22,6 +21,7 @@ class App extends React.Component {
 		this.addSnapActionSet = this.addSnapActionSet.bind(this);
 		this.addSnapAction = this.addSnapAction.bind(this);
 		this.sampleSnap = this.sampleSnap.bind(this);
+		this.toggleObserverBird = this.toggleObserverBird.bind(this);
 	}
 
 	addProgression(name) {
@@ -85,6 +85,7 @@ class App extends React.Component {
 				Object.keys(progressions[progression].actionSets[actionSet].actions).forEach(function(action){
 					var currentAction = progressions[progression].actionSets[actionSet].actions[action];
 					appState[currentAction.key] = currentAction.value;
+
 					this.setState({appState: appState});
 				}.bind(this));
 
@@ -102,22 +103,24 @@ class App extends React.Component {
 		}.bind(this));
 	}
 
+	/* {snapshot.snap('#snap1')} */
 
+	toggleObserverBird() {
+		if (this.state.className === "--overhaul-inactive") {
+			this.setState({ className: "--overhaul-observing" });
+		} else {
+			this.setState({ className: "--overhaul-inactive" });
+		}
+	}
 
-
-	render() {
+  render() {
       return (
-      	<div className="app">
-	        <div id="snap1">
-	        	Eagle Eye - Let's do this!
-						
-						</div>
-
-          <IndexPage />
-			    <ProgressionsPanel progressions={this.state.progressions} addProgression={ this.addProgression } addSnapActionSet={ this.addSnapActionSet } addSnapAction={ this.addSnapAction } sampleSnap={ this.sampleSnap } />
-		    </div>
+         <div id="--overhaul" className={this.state.className}>
+            <button onClick={ this.toggleObserverBird }>Open Eagle Eye</button>
+            <ProgressionsPanel overhaulStatus={ this.state.className } progressions={this.state.progressions} addProgression={ this.addProgression } addSnapActionSet={ this.addSnapActionSet } addSnapAction={ this.addSnapAction } sampleSnap={ this.sampleSnap } />
+         </div>
       );
    }
 }
-export default App;
 
+export default Overhaul;
