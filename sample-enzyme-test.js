@@ -16,14 +16,14 @@ describe("Initial State", function() {
 
     describe("Enter user email", function() {
     	it("User enters email in user-email field", function() {
-		    expect(shallow(<LoginPanel />).contains(<input id="user-email" value="salazar@gmail.com" />)).to.equal(true);
+	expect(shallow(<LoginPanel />).contains(<input id="user-email" value="salazar@gmail.com" />)).to.equal(true);
         //corresponding Salazar data
-		    // {
-		    // 	event: "setValue",
-		    // 	element: "#user-email",
-		    // 	key: "userEmail",
-		    // 	value: "salazar@gmail.com"
-		    // }
+	// {
+	// 	event: "setValue",
+	// 	element: "#user-email",
+	// 	key: "userEmail",
+	// 	value: "salazar@gmail.com"
+	// }
 
 
 		    describe("Login", function() {
