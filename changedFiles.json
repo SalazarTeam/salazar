@@ -1,10 +1,6 @@
 {
 	"modified": {
-		"IndexPage.js": true,
-		"TimeTracker.js": true,
-		"Layout.js": true,
-		"FileTracker.js": true,
-		"App.jsx": true
+		"IndexPage.js": true
 	},
-	"counter": 38
+	"counter": 1
 }

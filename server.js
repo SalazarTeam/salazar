@@ -6,12 +6,23 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const fsmonitor = require('fsmonitor');
 const modifiedObj = require('./changedFiles.json');
+const Salazar = require('./myController.js')
 
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, './')));
+
+
+
+
+app.get('/phantom', Salazar.Salazar);
+
+
+
+
+
 
 // respond with "hello world" when a GET request is made to the homepage
 app.get('/', (req, res) => {
@@ -31,7 +42,7 @@ app.post('/paths', function(req, res) {
 
 
   fs.writeFile(__dirname + '/paths.json', JSON.stringify(req.body, null, '\t'), function(){
-      console.log(req);
+      // console.log(req);
       res.end();
   });
 })
@@ -40,7 +51,6 @@ app.get('/changed', function(req, res) {
     let json = modifiedObj;
     res.send(json["modified"]);
 })
-
 
 fsmonitor.watch(__dirname + '/src/app/components', null, function(change) {
     
