@@ -30,6 +30,7 @@ export default class IndexPage extends React.Component {
   }
 
   submitPath(){
+    document.body.style.backgroundColor='#008000';
     let newArr = this.state.allPaths; 
     newArr.push(this.state.path);
     this.setState({allPaths: newArr});
@@ -61,6 +62,7 @@ export default class IndexPage extends React.Component {
 
   componentDidMount() {
     console.log('component mounted')
+
    return $.ajax({
           type: "get",
           dataType: 'json',
