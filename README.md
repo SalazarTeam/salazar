@@ -1,3 +1,3 @@
 # Salazar
 
-A library and development suite for UI Focused BDD/TDD
+A UI focused library for test driven development.
