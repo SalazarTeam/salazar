@@ -1,44 +1,62 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount, render } from 'enzyme';
-import Foo from '../src/LoginPanel';
+import LoginPanel from '../src/LoginPanel';
+//import Salazar
 
-describe("Initial State", function() {
+describe("Initial UI State", function() {
   it("Interface Loads", function() {
     expect(shallow(<LoginPanel />).contains(<div className="login-panel" />)).to.equal(true);
-    //corresponding Salazar data
-    // {
-    // 	event: "initialState",
-    // 	element: "",
-    // 	key: "",
-    // 	value: ""
-    // }
+//     Salazar({
+//     	progression: "successful login",
+//     	describe: "Initial UI State",
+//     	event: "initialState",
+//     	element: "",
+//     	key: "",
+//     	value: ""
+//     });
 
-    describe("Enter user email", function() {
+    describe("Enter Valid Email", function() {
     	it("User enters email in user-email field", function() {
-	expect(shallow(<LoginPanel />).contains(<input id="user-email" value="salazar@gmail.com" />)).to.equal(true);
-        //corresponding Salazar data
-	// {
-	// 	event: "setValue",
-	// 	element: "#user-email",
-	// 	key: "userEmail",
-	// 	value: "salazar@gmail.com"
-	// }
+		    expect(shallow(<LoginPanel />).contains(<input id="user-email" value="salazar@UI-BDD.com" />)).to.equal(true);
+//         Salazar({
+//         	progression: "successful login",
+// 		      describe: "Enter Valid Email"	,
+// 		    	event: "setValue",
+// 		    	element: "#user-email",
+// 		    	key: "userEmail",
+// 		    	value: "salazar@UI-BDD.com"
+// 		    });
 
 
-		    describe("Login", function() {
-			  	it("User clicks login button", function() {
-				    expect(mount(<LoginPanel />).contains(<button id="login-button" />)).to.equal(true);
-				    //corresponding Salazar data
-				    // {
-				    // 	event: "click",
-				    // 	element: "#login-button",
-				    // 	key: "",
-				    // 	value: ""
-				    // }
-				  });
-			  });
-		  });
+		    describe("Enter Valid Password", function() {
+		    	it("User enters password in user-password field", function() {
+				    expect(shallow(<LoginPanel />).contains(<input id="user-password" value="passw0rd" />)).to.equal(true);
+// 		        Salazar({
+// 		        	progression: "successful login",
+// 				      describe: "Enter Valid Password",
+// 				    	event: "setValue",
+// 				    	element: "#user-password",
+// 				    	key: "userPassword",
+// 				    	value: "salazar@gmail.com"
+// 				    });
+
+
+				    describe("Submit Login", function() {
+					  	it("User clicks login button", function() {
+						    expect(mount(<LoginPanel />).contains(<button id="login-button" />)).to.equal(true);
+// 						    Salazar({
+// 						      progression: "successful login",
+// 				      			describe: "Submit Login",
+// 						    	event: "click",
+// 						    	element: "#login-button",
+// 						    	key: "",
+// 						    	value: ""
+// 						    });
+						});
+					});
+				});
+	});
     });
   });		  
 });
