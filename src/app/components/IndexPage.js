@@ -61,16 +61,6 @@ export default class IndexPage extends React.Component {
   }
 
   componentDidMount() {
-    console.log('component mounted')
-
-   return $.ajax({
-          type: "get",
-          dataType: 'json',
-          url: "http://localhost:3000/changed",
-        }).done(function(result){
-          //console.log("result:",result);
-          this.setState({changedFiles: result});
-        }.bind(this));
   }
 
   render() {
