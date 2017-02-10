@@ -57,3 +57,6 @@ describe("Initial UI State", function() {
 		    });
 
 ```
+
+## Visualization Tool
+We're in the process of developing a more robust visualization tool but in the meantime you can use our progressions scrubber. Salazar will generate a narrative object in progressions.json. Configure your path for this file to be generated in the root of the visualizer directory. All of your narratives will be automatically organized by the "progression" key, making it easy to spot where your UI may not be behaving correctly even when corresponding unit tests might be passing.
