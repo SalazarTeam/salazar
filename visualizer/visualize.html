@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Salazar.js - A UI Focused BDD Library and Suite</title>
+        <title>Salazar.js - A UI Focused Library for Test Driven Development</title>
         <meta description="Unit test your UI"/>
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
         <link rel="stylesheet" href="css/jquery-ui.css">
@@ -18,179 +18,55 @@
         <script src="js/jquery.js"></script>
         <script src="js/jquery-ui.js"></script>
         <script>
-        var progression = [
-            {
-                "progression": "Incorrect Login",
-                "description": "put in username",
-                "result": "res",
-                "step": 1,
-                "element": ".username",
-                "text": "hello",
-                "action": "value",
-                "png": "fl1"
-            },
-            {
-                "progression": "Incorrect Login",
-                "description": "put in password 1",
-                "result": "res",
-                "step": 2,
-                "element": ".password",
-                "text": "dkfjk",
-                "action": "value",
-                "png": "fl2"
-            },
-            {
-                "progression": "Incorrect Login",
-                "description": "press login button 2",
-                "result": "res",
-                "step": 3,
-                "element": "#loginbtn",
-                "text": "",
-                "action": "onClick",
-                "png": "fl3"
-            },
-            {
-                "progression": "User Registration",
-                "description": "click new user",
-                "result": "res",
-                "step": 1,
-                "element": "#newuser",
-                "text": "",
-                "action": "onClick",
-                "png": "gb1"
-            },
-            {
-                "progression": "User Registration",
-                "description": "puts in name1",
-                "result": "res",
-                "step": 2,
-                "element": ".name",
-                "text": "dan",
-                "action": "value",
-                "png": "gb2"
-            },
-            {
-                "progression": "User Registration",
-                "description": "puts in name2",
-                "result": "res",
-                "step": 2,
-                "element": ".username",
-                "text": "dan",
-                "action": "value",
-                "png": "gb3"
-            },
-            {
-                "progression": "User Registration",
-                "description": "puts in name3",
-                "result": "res",
-                "step": 2,
-                "element": ".password",
-                "text": "pass123",
-                "action": "value",
-                "png": "gb4"
-            },
-            {
-                "progression": "User Registration",
-                "description": "puts in name4",
-                "result": "res",
-                "step": 2,
-                "element": "#registerbtn",
-                "text": "",
-                "action": "onClick",
-                "png": "gb5"
-            },
-            {
-                "progression": "User Registration",
-                "description": "clicks btn on green background",
-                "result": "res",
-                "step": 3,
-                "element": "#registerbtn",
-                "text": "",
-                "action": "onClick",
-                "png": "gb3"
-            },
-            {
-                "progression": "Correct Login",
-                "description": "Type in username",
-                "result": "res",
-                "step": 1,
-                "element": ".username",
-                "text": "hello",
-                "action": "value",
-                "png": "cl1"
-            },
-            {
-                "progression": "Correct Login",
-                "description": "Type in password",
-                "result": "res",
-                "step": 2,
-                "element": ".password",
-                "text": "hello",
-                "action": "value",
-                "png": "cl2"
-            },
-            {
-                "progression": "Correct Login",
-                "description": "Clicks on button",
-                "result": "res",
-                "step": 3,
-                "element": "#loginbtn",
-                "text": "",
-                "action": "onClick",
-                "png": "cl3",
-                "end": "true"
-            }
-        ];
+        $.getJSON("progressions.json", function(response){
+            var progression = response.progressions;
+            var currentProgression = "";
+            var progressionId = -1;
+            var actionId = 0;
+            var actionSetLength = [];
 
-        var currentProgression = "";
-        var progressionId = -1;
-        var actionId = 0;
-        var actionSetLength = [];
-
-        for (var snapshot in progression) {
-            if (progression[snapshot].progression !== currentProgression) {
-                if (progressionId >= 0) {
-                    actionSetLength[progressionId] = actionId;
-                }
-                currentProgression = progression[snapshot].progression;
-                progressionId++;
-                actionId = 0;
-                $(".ui-grouping").append("<li id='progression-" + progressionId + "'><h4>" + progression[snapshot].progression + "</h4><div class='interface-tests clear'><div class='interface'><ul id='progression-snaps-" + progressionId + "' class='progression-snaps'></ul></div><div class='tests'>[ Unit Test alignment in progress! ]</div><div class='time-travel'><div id='scrubber-action-set-name-" + progressionId + "' class='scrubber-action-set-name'>" + progression[snapshot].description + "</div><div id='action-set-scrubber-" + progressionId + "' class='action-set-scrubber'></div></div></div></li>");
-
-            }
-
-            var selectedClass = "";
-            if (!actionId) {
-                selectedClass = " class='selected'";
-            }
-
-            $("#progression-snaps-" + progressionId).append("<li id='action-set-" + progressionId + "-" + (actionId * 50) + "'" + selectedClass + " data-action-set-name='" + progression[snapshot].description + "'><img src='snapshots/" + progression[snapshot].png + ".png'/></li>");
-
-            actionId++;
-            
-            console.log("ProgressionId: ", progressionId);
-        }
-        actionSetLength[progressionId] = actionId;
-
-        //initialize our time travel scrubbers
-        for (var i = 0; i < progressionId + 1; i++) {
-            (function(progressionId) {
-                console.log("len: ", actionSetLength[progressionId] * 50);
-                $("#action-set-scrubber-" + progressionId).slider({
-                    value: 0,
-                    min: 0,
-                    max: ((actionSetLength[progressionId] - 1) * 50),
-                    step: 50,
-                    slide: function( event, ui ) {
-                        $("#progression-snaps-" + progressionId + " > li").removeClass();
-                        $("#progression-tests-" + progressionId + " > li").removeClass();
-                        $("#progression-snaps-" + progressionId + " > li#action-set-" + progressionId + "-" + ui.value).addClass("selected");
-                        $("#progression-tests-" + progressionId + " > li#progression-test-" + progressionId + "-" + ui.value).addClass("selected");
-                        $("#scrubber-action-set-name-" + progressionId).html($("#progression-snaps-" + progressionId + " > li#action-set-" + progressionId + "-" + ui.value).attr("data-action-set-name"));
+            for (var snapshot in progression) {
+                if (progression[snapshot].progression !== currentProgression) {
+                    if (progressionId >= 0) {
+                        actionSetLength[progressionId] = actionId;
                     }
-                });
-            })(i);
-        }
+                    currentProgression = progression[snapshot].progression;
+                    progressionId++;
+                    actionId = 0;
+                    $(".ui-grouping").append("<li id='progression-" + progressionId + "'><h4>" + progression[snapshot].progression + "</h4><div class='interface-tests clear'><div class='interface'><ul id='progression-snaps-" + progressionId + "' class='progression-snaps'></ul></div><div class='tests'>[ Unit Test alignment in progress! ]</div><div class='time-travel'><div id='scrubber-action-set-name-" + progressionId + "' class='scrubber-action-set-name'>" + progression[snapshot].description + "</div><div id='action-set-scrubber-" + progressionId + "' class='action-set-scrubber'></div></div></div></li>");
+
+                }
+
+                var selectedClass = "";
+                if (!actionId) {
+                    selectedClass = " class='selected'";
+                }
+
+                $("#progression-snaps-" + progressionId).append("<li id='action-set-" + progressionId + "-" + (actionId * 50) + "'" + selectedClass + " data-action-set-name='" + progression[snapshot].description + "'><img src='snapshots/" + progression[snapshot].png + ".png'/></li>");
+
+                actionId++;
+            }
+            actionSetLength[progressionId] = actionId;
+
+            //initialize our time travel scrubbers
+            for (var i = 0; i < progressionId + 1; i++) {
+                (function(progressionId) {
+                    $("#action-set-scrubber-" + progressionId).slider({
+                        value: 0,
+                        min: 0,
+                        max: ((actionSetLength[progressionId] - 1) * 50),
+                        step: 50,
+                        slide: function( event, ui ) {
+                            $("#progression-snaps-" + progressionId + " > li").removeClass();
+                            $("#progression-tests-" + progressionId + " > li").removeClass();
+                            $("#progression-snaps-" + progressionId + " > li#action-set-" + progressionId + "-" + ui.value).addClass("selected");
+                            $("#progression-tests-" + progressionId + " > li#progression-test-" + progressionId + "-" + ui.value).addClass("selected");
+                            $("#scrubber-action-set-name-" + progressionId).html($("#progression-snaps-" + progressionId + " > li#action-set-" + progressionId + "-" + ui.value).attr("data-action-set-name"));
+                        }
+                    });
+                })(i);
+            }
+        });        
     </script>
     </body>
 </html>
