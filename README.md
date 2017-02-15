@@ -1,5 +1,7 @@
 # Salazar
 
+#Salazar is still under development. Our first full release should be available by March 3rd. Please check back for any future updates!
+
 A UI focused library for test driven development.
 
 ## Setup
