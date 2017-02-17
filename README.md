@@ -55,7 +55,7 @@ describe("Initial UI State", function() {
 		    	element: "#user-email",
 		    	action: "value"
 		    	text: "salazar@UI-BDD.com"
-			png: "validemail2"
+				png: "validemail2"
 		    });
 
 ```
