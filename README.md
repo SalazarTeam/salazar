@@ -11,7 +11,7 @@ npm install salazar
 ```
 
 ## Usage
-Salazar relies on your description in your tests to connect UI snapshotting with corresponding unit tests. The "describe" key in the object you pass to Salazar should be the exact string used for the describe used in the parent test.
+Salazar relies on your description in your tests to connect UI snapshotting with corresponding unit tests. The "description" key in the object you pass to Salazar should be the exact string used for the describe used in the parent test.
 
 ```
 ...
@@ -41,7 +41,7 @@ describe("Initial UI State", function() {
     	element: "",
     	action: "",
     	text: "",
-	png: "loads1"
+		png: "loads1",
     });
 
     describe("Enter Valid Email", function() {
@@ -55,7 +55,7 @@ describe("Initial UI State", function() {
 		    	element: "#user-email",
 		    	action: "value"
 		    	text: "salazar@UI-BDD.com"
-			png: "validemail2"
+				png: "validemail2"
 		    });
 
 ```
