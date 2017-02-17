@@ -18,13 +18,13 @@ Salazar relies on your description in your tests to connect UI snapshotting with
 describe("Enter Valid Email", function() {
   it("User enters email in user-email field", function() {
     expect(shallow(<LoginPanel />).contains(<input id="user-email" value="salazar@UI-BDD.com" />)).to.equal(true);
-    Salazar({
+    Salazar.run({
       progression: "successful login",
       describe: "Enter Valid Email"	,
       event: "setValue",
       element: "#user-email",
-      key: "userEmail",
-      value: "salazar@UI-BDD.com"
+      action: "value",
+      text: "salazar@UI-BDD.com"
     });
     ...
 ```
@@ -35,13 +35,13 @@ From there, the library will compound objects in a given progression (i.e. a nar
 describe("Initial UI State", function() {
   it("Interface Loads", function() {
     expect(shallow(<LoginPanel />).contains(<div className="login-panel" />)).to.equal(true);
-    Salazar({
+    Salazar.run({
     	progression: "successful login",
     	describe: "Initial UI State",
     	event: "initialState",
     	element: "",
-    	key: "",
-    	value: ""
+    	action: "",
+    	text: ""
     });
 
     describe("Enter Valid Email", function() {
@@ -49,13 +49,13 @@ describe("Initial UI State", function() {
 		    expect(shallow(<LoginPanel />).contains(<input id="user-email" value="salazar@UI-BDD.com" />)).to.equal(true);
         //previous object sent in this progression will be processed before snapshot for this call is made
         //since it is nested in the same progression
-        Salazar({
+        Salazar.run({
         	progression: "successful login",
 		      describe: "Enter Valid Email"	,
 		    	event: "setValue",
 		    	element: "#user-email",
-		    	key: "userEmail",
-		    	value: "salazar@UI-BDD.com"
+		    	action: "value"
+		    	text: "salazar@UI-BDD.com"
 		    });
 
 ```
