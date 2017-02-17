@@ -20,11 +20,11 @@ describe("Enter Valid Email", function() {
     expect(shallow(<LoginPanel />).contains(<input id="user-email" value="salazar@UI-BDD.com" />)).to.equal(true);
     Salazar.run({
       progression: "successful login",
-      describe: "Enter Valid Email"	,
-      event: "setValue",
+      description: "Enter Valid Email",
       element: "#user-email",
       action: "value",
-      text: "salazar@UI-BDD.com"
+      text: "salazar@UI-BDD.com",
+      png: "validemail1"
     });
     ...
 ```
@@ -37,11 +37,11 @@ describe("Initial UI State", function() {
     expect(shallow(<LoginPanel />).contains(<div className="login-panel" />)).to.equal(true);
     Salazar.run({
     	progression: "successful login",
-    	describe: "Initial UI State",
-    	event: "initialState",
+    	description: "Initial UI State",
     	element: "",
     	action: "",
-    	text: ""
+    	text: "",
+	png: "loads1"
     });
 
     describe("Enter Valid Email", function() {
@@ -51,11 +51,11 @@ describe("Initial UI State", function() {
         //since it is nested in the same progression
         Salazar.run({
         	progression: "successful login",
-		      describe: "Enter Valid Email"	,
-		    	event: "setValue",
+		      description: "Enter Valid Email",
 		    	element: "#user-email",
 		    	action: "value"
 		    	text: "salazar@UI-BDD.com"
+			png: "validemail2"
 		    });
 
 ```
