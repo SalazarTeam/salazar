@@ -1,6 +1,5 @@
 var Nightmare = require('nightmare');       
 var nightmare = Nightmare({ show: true });
-var run = require('./run')
 
 
 module.exports =  (obj) => {

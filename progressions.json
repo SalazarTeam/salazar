@@ -1,17 +1,17 @@
 [
 	{
 		"progression": "Incorrect Login",
-		"description": "put in username",
+		"description": "Puts in username",
 		"result": "res",
 		"step": 1,
 		"element": ".username",
-		"text": "hi my name is anto",
+		"text": "wrongusername",
 		"action": "value",
 		"png": "fl1"
 	},
 	{
 		"progression": "Incorrect Login",
-		"description": "put in password",
+		"description": "Puts in password",
 		"result": "res",
 		"step": 2,
 		"element": ".password",
@@ -21,7 +21,7 @@
 	},
 	{
 		"progression": "Incorrect Login",
-		"description": "press login button",
+		"description": "Press login button",
 		"result": "res",
 		"step": 3,
 		"element": "#loginbtn",
@@ -31,7 +31,7 @@
 	},
 	{
 		"progression": "User Registration",
-		"description": "click new user",
+		"description": "Click new user",
 		"result": "res",
 		"step": 1,
 		"element": "#newuser",
@@ -41,7 +41,7 @@
 	},
 	{
 		"progression": "User Registration",
-		"description": "puts in name",
+		"description": "Puts in name",
 		"result": "res",
 		"step": 2,
 		"element": ".name",
@@ -51,7 +51,7 @@
 	},
 	{
 		"progression": "User Registration",
-		"description": "puts in name",
+		"description": "Puts in username",
 		"result": "res",
 		"step": 2,
 		"element": ".username",
@@ -61,7 +61,7 @@
 	},
 	{
 		"progression": "User Registration",
-		"description": "puts in name",
+		"description": "Puts in password",
 		"result": "res",
 		"step": 2,
 		"element": ".password",
@@ -71,7 +71,7 @@
 	},
 	{
 		"progression": "User Registration",
-		"description": "puts in name",
+		"description": "Clicks on register",
 		"result": "res",
 		"step": 2,
 		"element": "#registerbtn",

@@ -1,4 +1,22 @@
-/* SAMPLE FILE TO RUN SOME TEST CASES 
+/* SAMPLE FILE TO RUN SOME TEST CASES (modify to your project's HTML element names)
+
+action: 2 choices, "value" inputs text into a form, "onClick" clicks on a button on your HTML
+
+If you put "value" for action, specify which element on the HTML you want to target with "element"
+Next, specify what you want the text to be in "text"
+
+For example, if your test is inputting 'hello' into 'class="username"', then you would put:
+
+action: 'value',
+text: 'hello',
+element: '.username'
+
+If you put "onClick" for action, specify which element you want to click on.
+
+For example, if your test is clicking on 'id="loginbtn"', then you would put:
+
+action: 'onClick',
+element: '#loginbtn'
 
 -salazar.path sets the path to take screenshots of
 -salazar.run sends the narrative object to the algorithm
