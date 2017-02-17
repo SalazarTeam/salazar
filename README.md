@@ -41,7 +41,7 @@ describe("Initial UI State", function() {
     	element: "",
     	action: "",
     	text: "",
-	png: "loads1"
+	png: "loads1",
     });
 
     describe("Enter Valid Email", function() {
