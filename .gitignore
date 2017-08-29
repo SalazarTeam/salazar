@@ -5,3 +5,5 @@ src/.DS_Store
 src/app/.DS_Store
 paths.json
 public/app/index.js
+Screenshots/*
+!Screenshots/README.md 

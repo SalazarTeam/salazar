@@ -1,6 +1,6 @@
 # Salazar
 
-### Salazar is still under development. Please check back for any future updates!
+### Salazar is still under development, optimizations are being implemented. Stay tuned for further updates!
 
 A UI focused library for test driven development.
 
