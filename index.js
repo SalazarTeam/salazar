@@ -24,12 +24,12 @@ function Salazar(obj) {
             function evaluatePosition(currObj) {
                 //Does the test fill a field with a value? 
                 if (currObj.action === 'value') {
-                    snapshotString += '.insert(\'' + currObj.element + '\', \'' + currObj.text + '\').wait().screenshot(\'./Screenshots/' + currObj.png + '.png\')\n'; 
+                    snapshotString += '.insert(\'' + currObj.element + '\', \'' + currObj.text + '\').wait().screenshot(\'node_modules/salazar/Screenshots/' + currObj.png + '.png\')\n'; 
                     }
 
                 //Does the test click on a button?
                 if (currObj.action === 'onClick') {
-                    snapshotString += '.click(\'' + currObj.element + '\').wait(100).screenshot(\'./Screenshots/' + currObj.png + '.png\')\n';
+                    snapshotString += '.click(\'' + currObj.element + '\').wait(100).screenshot(\'node_modules/salazar/Screenshots/' + currObj.png + '.png\')\n';
                 }
             }
 
