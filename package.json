@@ -16,6 +16,9 @@
   "homepage": "https://github.com/SalazarTeam/salazar#readme",
   "devDependencies": {},
   "dependencies": {
-    "nightmare": "^2.9.1"
+    "launch-browser": "^1.0.0",
+    "nightmare": "^2.9.1",
+    "open": "0.0.5",
+    "opn": "^5.1.0"
   }
 }

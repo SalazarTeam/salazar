@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Salazar.js - A UI Focused Library for Test Driven Development</title>
+        <meta description="Unit test your UI"/>
+        <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
+        <link rel="stylesheet" href="css/jquery-ui.css">
+        <link rel="stylesheet" href="css/visualizer.css">
+        <script type="text/javascript" src="progressions.js"></script>
+    </head>
+    <body>
+        <div class="container">
+        <h3>Progressions</h3>
+        <ul class="ui-grouping">
+        </ul>
+        <script src="js/jquery.js"></script>
+        <script src="js/jquery-ui.js"></script>
+        <script>
+            var progression = response.progressions;
+            var currentProgression = "";
+            var progressionId = -1;
+            var actionId = 0;
+            var actionSetLength = [];
+
+            for (var snapshot in progression) {
+                if (progression[snapshot].progression !== currentProgression) {
+                    if (progressionId >= 0) {
+                        actionSetLength[progressionId] = actionId;
+                    }
+                    currentProgression = progression[snapshot].progression;
+                    progressionId++;
+                    actionId = 0;
+                    $(".ui-grouping").append("<li id='progression-" + progressionId + "'><h4>" + progression[snapshot].progression + "</h4><div class='interface-tests clear'><div class='interface'><ul id='progression-snaps-" + progressionId + "' class='progression-snaps'></ul></div><div class='time-travel'><div id='scrubber-action-set-name-" + progressionId + "' class='scrubber-action-set-name'>" + progression[snapshot].description + "</div><div id='action-set-scrubber-" + progressionId + "' class='action-set-scrubber'></div></div></div></li>");
+
+                }
+
+                var selectedClass = "";
+                if (!actionId) {
+                    selectedClass = " class='selected'";
+                }
+
+                $("#progression-snaps-" + progressionId).append("<li id='action-set-" + progressionId + "-" + (actionId * 50) + "'" + selectedClass + " data-action-set-name='" + progression[snapshot].description + "'><img src='../Screenshots/" + progression[snapshot].png + ".png'/></li>");
+
+                actionId++;
+            }
+            actionSetLength[progressionId] = actionId;
+
+            //initialize our time travel scrubbers
+            for (var i = 0; i < progressionId + 1; i++) {
+                (function(progressionId) {
+                    $("#action-set-scrubber-" + progressionId).slider({
+                        value: 0,
+                        min: 0,
+                        max: ((actionSetLength[progressionId] - 1) * 50),
+                        step: 50,
+                        slide: function( event, ui ) {
+                            $("#progression-snaps-" + progressionId + " > li").removeClass();
+                            $("#progression-tests-" + progressionId + " > li").removeClass();
+                            $("#progression-snaps-" + progressionId + " > li#action-set-" + progressionId + "-" + ui.value).addClass("selected");
+                            $("#progression-tests-" + progressionId + " > li#progression-test-" + progressionId + "-" + ui.value).addClass("selected");
+                            $("#scrubber-action-set-name-" + progressionId).html($("#progression-snaps-" + progressionId + " > li#action-set-" + progressionId + "-" + ui.value).attr("data-action-set-name"));
+                        }
+                    });
+                })(i);
+            }
+        </script>
+    </body>
+</html>

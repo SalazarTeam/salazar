@@ -1,7 +1,6 @@
 var Snapshot = require('./nightmaresnap.js');
 var fs = require('fs');
 
-
 function Salazar(obj) {
     //Compiled list of all test cases
     this.compiled = [];
@@ -17,19 +16,19 @@ function Salazar(obj) {
     this.run = function(obj) {
         this.compiled.push(obj);
 
-        if (obj.end === 'true') {
+        if (obj.end) {
             let snapshotString = 'nightmare.goto(path)';
             this.currProgression = '';
 
             function evaluatePosition(currObj) {
                 //Does the test fill a field with a value? 
                 if (currObj.action === 'value') {
-                    snapshotString += '.insert(\'' + currObj.element + '\', \'' + currObj.text + '\').wait().screenshot(\'node_modules/salazar/Screenshots/' + currObj.png + '.png\')\n'; 
+                    snapshotString += '.insert(\'' + currObj.element + '\', \'' + currObj.text + '\').wait().screenshot(__dirname + \'/Screenshots/' + currObj.png + '.png\')\n'; 
                     }
 
                 //Does the test click on a button?
                 if (currObj.action === 'onClick') {
-                    snapshotString += '.click(\'' + currObj.element + '\').wait(100).screenshot(\'node_modules/salazar/Screenshots/' + currObj.png + '.png\')\n';
+                    snapshotString += '.click(\'' + currObj.element + '\').wait(100).screenshot(__dirname + \'/Screenshots/' + currObj.png + '.png\')\n';
                 }
             }
 
@@ -49,17 +48,17 @@ function Salazar(obj) {
                 }
                 if (i === this.compiled.length - 1) {
                     snapshotString += '.end()'
-                    snapshotString += '.then(function(result){\n})'
+                    snapshotString += '.then(function(result){ open(__dirname + \'/visualizer/visualize.html\');})'
                     for (let j=0; j<count; j++) {
                         snapshotString += '})';
                     }
                     snapshotString += '.catch(function(error){\nconsole.error(\'Search failed:\', error);\n})' 
                 }
             }
-
+            this.compiled = `var response = ${JSON.stringify({ progressions: this.compiled }, null, '\t')}`;
             //writes the full list of objects to text database
-            fs.writeFile(__dirname + '/progressions.json', JSON.stringify(this.compiled, null, '\t'), function(){
-                console.log('wrote to progressions.json');
+            fs.writeFile(__dirname + '/visualizer/progressions.js', this.compiled, function(){
+                console.log('wrote to progressions.js');
             });
 
             Snapshot(snapshotString);

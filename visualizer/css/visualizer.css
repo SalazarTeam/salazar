@@ -1,0 +1,72 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video,ul,li{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}table{border-collapse:collapse;border-spacing:0}
+html {box-sizing: border-box;}
+
+*, *:before, *:after {box-sizing: inherit;}
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+.clear:after {content: ""; display: table; clear: both;}
+h1, h2, h3, h4, h5, h6 {font-weight: bold;}
+h1 {font-size: 2.0em;}
+h2 {font-size: 1.6em;}
+h3 {font-size: 1.4em;}
+h4 {font-size: 1.2em;}
+h5 {font-size: 1.1em; padding: 3px; border-bottom: 1px solid #f2f2f2; margin-bottom: 4px;}
+
+.container {padding: 10px;}
+
+ul {margin: 20px;}
+ul > li {position: relative;}
+
+ul.groups {}
+ul.groups > li {border: 4px solid #66c; border-radius: 5px; padding: 8px; margin: 10px 0;}
+
+ul.progressions {border: 4px solid #99c; border-radius: 5px; padding: 8px;}
+ul.progressions > li {padding: 8px 0; border-bottom: 2px solid #eee;}
+ul.progressions > li:last-of-type {border-bottom: 0;}
+
+ul.action-sets {}
+ul.action-sets > li {float: left; width: 23%; margin: 10px 4px; border: 4px solid #639; border-radius: 5px; padding: 8px;}
+ul.action-sets > li input {display: block; width: 100%;}
+
+ul.actions {margin: 0;}
+ul.actions > li {border: 4px solid #999; padding: 10px; border-radius: 5px; margin: 12px 0;}
+em.action-order {position: absolute; top: -10px; left: -10px; border: 2px solid #111; border-radius: 5px; padding: 4px; box-shadow: 2px 2px 4px #ccc; background-color: #fff;}
+
+.visualizer {}
+.visualizer > .progression-setup {float: left; width: 40%;}
+.visualizer > .interface-inspector {float: left; width: 59%; margin-left: 1%;}
+
+/* Tested UI CSS */
+
+.interface-tests {}
+.interface-tests > .interface {float: left; width: 58%; margin: 0 1%;}
+.interface-tests > .tests {float: left; width: 38%;}
+
+.ui-grouping > li {border-bottom: 3px solid #888; margin-bottom: 30px; padding: 0 15px 30px;}
+.ui-grouping h4 {font-size: 1.3em; font-weight: bold; margin: 15px 0; border: 2px solid #33c; background-color: #ccf; text-align: center; padding: 10px 4px;}
+
+ul.progression-snaps > li, ul.progression-tests > li {display: none;}
+ul.progression-snaps > li.selected, ul.progression-tests > li.selected {display: block;}
+ul.progression-snaps > li > img {max-width: 600px; max-height: 400px; border: 1px solid #33c;}
+
+ul.test-units {margin: 0;}
+ul.test-units > li {clear: both;}
+ul.test-units > li > em {display: block; float: left; width: 36px; overflow: hidden; background-image: url("images/pass-fail-icons.png"); background-position: -73px 0; background-repeat: no-repeat; font-size: 0.85em; min-height: 42px; margin: 0px 6px 10px 0;}
+ul.test-units > li.pass > em {background-position: 0px 0;}
+ul.test-units > li.fail > em {background-position: -36px 0;}
+ul.test-units > li > span {display: block; float: left; width: 70%;}
+
+.scrubber-action-set-name {margin: 10px 0; font-weight: bold; font-size: 1.25em;}
+
+.notice {position: absolute; top: 10px; left: 4px; width: 96%; background-color: #fc9; border: 2px solid #f60; border-radius: 3px; padding: 20px 10px; min-height: 140px; opacity: 0.9;}
+
+.interface {font-family: "Lato"}
+
+.interface .error {display: block; margin: 10px 0; background-color: #fcc; border: 3px solid #c33; padding: 10px; font-size: 1.3em; font-weight: bold; text-align: center; border-radius: 5px;}
+
+#generate-progressions {display: block; width: 200px; font-size: 1.4em; font-weight: bold; padding: 10px; background-color: #096; margin: 10px auto;}
+
+.time-travel {clear: both;}
+
+textarea {width: 100%; height: 800px; font-size: 14px;}

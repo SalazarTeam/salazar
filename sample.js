@@ -61,8 +61,6 @@ salazar.run({
     png: "fl3",
 })
 
-
-
 salazar.run({
     progression: "User Registration",
     description: "Click new user",
