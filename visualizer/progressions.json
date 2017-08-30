@@ -1,0 +1,126 @@
+{
+    "progressions":
+    [
+        {
+            "progression": "Incorrect Login",
+            "description": "put in username",
+            "result": "res",
+            "step": "1",
+            "element": ".username",
+            "text": "hello",
+            "action": "value",
+            "png": "fl1"
+        },
+        {
+            "progression": "Incorrect Login",
+            "description": "put in password",
+            "result": "res",
+            "step": "2",
+            "element": ".password",
+            "text": "dkfjk",
+            "action": "value",
+            "png": "fl2"
+        },
+        {
+            "progression": "Incorrect Login",
+            "description": "press login button",
+            "result": "res",
+            "step": "3",
+            "element": "#loginbtn",
+            "text": "",
+            "action": "onClick",
+            "png": "fl3"
+        },
+        {
+            "progression": "User Registration",
+            "description": "click new user",
+            "result": "res",
+            "step": "1",
+            "element": "#newuser",
+            "text": "",
+            "action": "onClick",
+            "png": "gb1"
+        },
+        {
+            "progression": "User Registration",
+            "description": "puts in name",
+            "result": "res",
+            "step": "2",
+            "element": ".name",
+            "text": "dan",
+            "action": "value",
+            "png": "gb2"
+        },
+        {
+            "progression": "User Registration",
+            "description": "puts in username",
+            "result": "res",
+            "step": "2",
+            "element": ".username",
+            "text": "dan",
+            "action": "value",
+            "png": "gb3"
+        },
+        {
+            "progression": "User Registration",
+            "description": "puts in password",
+            "result": "res",
+            "step": "2",
+            "element": ".password",
+            "text": "pass123",
+            "action": "value",
+            "png": "gb4"
+        },
+        {
+            "progression": "User Registration",
+            "description": "clicks registration",
+            "result": "res",
+            "step": "2",
+            "element": "#registerbtn",
+            "text": "",
+            "action": "onClick",
+            "png": "gb5"
+        },
+        {
+            "progression": "User Registration",
+            "description": "clicks btn on green background",
+            "result": "res",
+            "step": "3",
+            "element": "#registerbtn",
+            "text": "",
+            "action": "onClick",
+            "png": "gb3"
+        },
+        {
+            "progression": "Correct Login",
+            "description": "Type in username",
+            "result": "res",
+            "step": "1",
+            "element": ".username",
+            "text": "hello",
+            "action": "value",
+            "png": "cl1"
+        },
+        {
+            "progression": "Correct Login",
+            "description": "Type in password",
+            "result": "res",
+            "step": "2",
+            "element": ".password",
+            "text": "hello",
+            "action": "value",
+            "png": "cl2"
+        },
+        {
+            "progression": "Correct Login",
+            "description": "Clicks on button",
+            "result": "res",
+            "step": "3",
+            "element": "#loginbtn",
+            "text": "",
+            "action": "onClick",
+            "png": "cl3",
+            "end": "true"
+        }
+    ]
+}
