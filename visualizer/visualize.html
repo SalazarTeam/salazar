@@ -8,6 +8,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"/>
         <link rel="stylesheet" href="css/jquery-ui.css">
         <link rel="stylesheet" href="css/visualizer.css">
+        <script type="text/javascript" src="progressions.js"></script>
     </head>
     <body>
         <div class="container">
@@ -17,7 +18,6 @@
         <script src="js/jquery.js"></script>
         <script src="js/jquery-ui.js"></script>
         <script>
-        $.getJSON("progressions.json", function(response){
             var progression = response.progressions;
             var currentProgression = "";
             var progressionId = -1;
@@ -32,17 +32,14 @@
                     currentProgression = progression[snapshot].progression;
                     progressionId++;
                     actionId = 0;
-                    $(".ui-grouping").append("<li id='progression-" + progressionId + "'><h4>" + progression[snapshot].progression + "</h4><div class='interface-tests clear'><div class='interface'><ul id='progression-snaps-" + progressionId + "' class='progression-snaps'></ul></div><div class='tests'>[ Unit Test alignment in progress! ]</div><div class='time-travel'><div id='scrubber-action-set-name-" + progressionId + "' class='scrubber-action-set-name'>" + progression[snapshot].description + "</div><div id='action-set-scrubber-" + progressionId + "' class='action-set-scrubber'></div></div></div></li>");
-
+                    $(".ui-grouping").append("<li id='progression-" + progressionId + "'><h4>" + progression[snapshot].progression + "</h4><div class='interface-tests clear'><div class='interface'><ul id='progression-snaps-" + progressionId + "' class='progression-snaps'></ul></div><div class='time-travel'><div id='scrubber-action-set-name-" + progressionId + "' class='scrubber-action-set-name'>" + progression[snapshot].description + "</div><div id='action-set-scrubber-" + progressionId + "' class='action-set-scrubber'></div></div></div></li>");
                 }
 
                 var selectedClass = "";
                 if (!actionId) {
                     selectedClass = " class='selected'";
                 }
-
-                $("#progression-snaps-" + progressionId).append("<li id='action-set-" + progressionId + "-" + (actionId * 50) + "'" + selectedClass + " data-action-set-name='" + progression[snapshot].description + "'><img src='snapshots/" + progression[snapshot].png + ".png'/></li>");
-
+                $("#progression-snaps-" + progressionId).append("<li id='action-set-" + progressionId + "-" + (actionId * 50) + "'" + selectedClass + " data-action-set-name='" + progression[snapshot].description + "'><img src='../Screenshots/" + progression[snapshot].png + ".png'/></li>");
                 actionId++;
             }
             actionSetLength[progressionId] = actionId;
@@ -65,7 +62,6 @@
                     });
                 })(i);
             }
-        });        
-    </script>
+        </script>
     </body>
 </html>
